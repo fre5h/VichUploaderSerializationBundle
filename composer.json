@@ -1,0 +1,36 @@
+{
+    "name": "fresh/vich-uploader-serialization-bundle",
+    "description": "Provides integration between VichUploaderBundle and JMSSerializerBundle.",
+    "keywords": ["bundle", "symfony", "VichUploaderBundle", "JMSSerializerBundle", "serialization", "file upload", "upload", "integration"],
+    "homepage": "https://github.com/fre5h/VichUploaderSerializationBundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Artem Genvald",
+            "email": "genvaldartem@gmail.com",
+            "role": "Creator"
+        }
+    ],
+    "support": {
+        "email": "genvaldartem@gmail.com",
+        "issues": "https://github.com/fre5h/VichUploaderSerializationBundle/issues"
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "symfony/symfony": "~2.7",
+	"vich/uploader-bundle": "dev-master",
+	"jms/serializer-bundle": "~1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.8",
+        "squizlabs/php_codesniffer": "dev-master",
+        "escapestudios/symfony2-coding-standard": "~2.7"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Fresh\\VichUploaderSerializationBundle\\": ""
+        }
+    }
+}
