@@ -61,6 +61,18 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        // Trigger the autoloading of annotations
+        class_exists('Doctrine\ORM\Mapping\Table');
+        class_exists('Doctrine\ORM\Mapping\Entity');
+        class_exists('JMS\Serializer\Annotation\ExclusionPolicy');
+        class_exists('JMS\Serializer\Annotation\Expose');
+        class_exists('JMS\Serializer\Annotation\SerializedName');
+        class_exists('JMS\Serializer\Annotation\Exclude');
+        class_exists('Vich\UploaderBundle\Mapping\Annotation\Uploadable');
+        class_exists('Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableClass');
+        class_exists('Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableField');
+
+        // Mock storage
         $this->storage = $this->getMockBuilder('Vich\UploaderBundle\Storage\FileSystemStorage')
                               ->disableOriginalConstructor()
                               ->getMock();
@@ -68,19 +80,24 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
                       ->method('resolveUri')
                       ->will($this->onConsecutiveCalls('/uploads/photo.jpg', '/uploads/cover.jpg'));
 
-
+        // Mock Request contest
         $this->requestContext = $this->getMockBuilder('Symfony\Component\Routing\RequestContext')
                                      ->disableOriginalConstructor()
                                      ->getMock();
-        $this->requestContext->expects($this->any())->method('getScheme')->willReturn('http');
-        $this->requestContext->expects($this->any())->method('getHost')->willReturn('example.com');
+        $this->requestContext->expects($this->any())
+                             ->method('getScheme')
+                             ->willReturn('http');
+        $this->requestContext->expects($this->any())
+                             ->method('getHost')
+                             ->willReturn('example.com');
 
         $this->annotationReader = new CachedReader(new AnnotationReader(), new ArrayCache());
 
+        // Mock logger
         $this->logger = $this->getMockBuilder('Monolog\Logger')
                              ->disableOriginalConstructor()
+                             ->setMethods(['debug'])
                              ->getMock();
-        $this->logger->expects($this->any())->method('debug');
 
         $this->dispatcher = new EventDispatcher();
         $listener = new JmsPreSerializeListener($this->storage, $this->requestContext, $this->annotationReader, $this->logger);
