@@ -2,7 +2,7 @@
 
 Provides integration between [VichUploaderBundle](https://github.com/dustin10/VichUploaderBundle "VichUploaderBundle") and
 [JMSSerializerBundle](https://github.com/dustin10/VichUploaderBundle "JMSSerializerBundle").
-Allows to generate full or related URI to the file during the serialization.
+Allows to generate full or relative URIs to files mapped with `@Vich` and `@JMS` annotations during the serialization.
 
 [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/fre5h/VichUploaderSerializationBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/fre5h/VichUploaderSerializationBundle/)
 [![Build Status](https://img.shields.io/travis/fre5h/VichUploaderSerializationBundle.svg?style=flat-square)](https://travis-ci.org/fre5h/VichUploaderSerializationBundle)
@@ -36,22 +36,30 @@ public function registerBundles()
 
 ## Using
 
+Add the next class to the `use` section of your entity class.
+
+```php
+use Fresh\VichUploaderSerializationBundle\Annotation as Fresh;
+```
+
 Bundle provides two annotations which allow the serialization of `@Vich\UploadableField` fields in your entities.
 At first you have to add `@VichSerializableClass` to the entity class which has uploadable fields.
 Then you have to add `@VichSerializableField` annotation to the uploadable field you want to serialize.
 
-Annotation `@VichSerializableClass` does not have any option.  
-Annotation `@VichSerializableField` has one required option `value` (or `field`) which value should link to the field with `@UploadableField` annotation.
-It can be set like this `@VichSerializableField("photoFile")` or `@VichSerializableField(field="photoFile")`.
+Annotation `@Fresh\VichSerializableClass` does not have any option.  
+Annotation `@Fresh\VichSerializableField` has one required option `value` (or `field`) which value should link to the field with `@UploadableField` annotation.
+It can be set like this `@Fresh\VichSerializableField("photoFile")` or `@Fresh\VichSerializableField(field="photoFile")`.
 Also there is another option `includeHost`, it is not required and by default is set to `true`.
-But if you need you can exclude the host from generated URI `@VichSerializableField("photoFile", includeHost=false)`.
+But if you need you can exclude the host from generated URI user this `@Fresh\VichSerializableField("photoFile", includeHost=false)`.
+
+And also don't forget the to serialize Vich uploadable fields they also should be marked with `@JMS` annotations.
 
 The generated URI by default:
 
 ```json
 {
   "photo": "http://example.com/uploads/users/photos/5659828fa80a7.jpg",
-  "cover": "http://example.com/uploads/users/cover/456428fa8g4a8.jpg",
+  "cover": "http://example.com/uploads/users/covers/456428fa8g4a8.jpg",
 }
 ```
 
@@ -60,7 +68,7 @@ The generated URI with `includeHost` set to `false`:
 ```json
 {
   "photo": "/uploads/users/photos/5659828fa80a7.jpg",
-  "cover": "/uploads/users/cover/456428fa8g4a8.jpg",
+  "cover": "/uploads/users/covers/456428fa8g4a8.jpg",
 }
 ```
 
@@ -72,6 +80,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Fresh\VichUploaderSerializationBundle\Annotation as Fresh;
+use JMS\Serializer\Annotation as JMS;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
