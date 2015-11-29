@@ -18,7 +18,7 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 
 ## Installation
 
-```php composer.phar require fresh/vich-uploader-serialization-bundle='dev-master'```
+```php composer.phar require fresh/vich-uploader-serialization-bundle='v1.0.0'```
 
 ### Register the bundle
 
@@ -76,6 +76,7 @@ The generated URI with `includeHost` set to `false`:
 
 ```php
 <?php
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -146,10 +147,11 @@ because this field is mapped to a database and keeps the name of stored file.
 Don't use the `@Fresh\VichSerializableField` on the field which also mapped with `@Vich\UploadableField`, this is a wrong use and will
 throw an exception!
 
-So the next example is the **incorrect** use of provided annotation!
+So the next example is the **incorrect** use of provided annotations! Don't do so!
 
 ```php
 <?php
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -178,7 +180,7 @@ class User
     /**
      * @var File $photoFile Photo file
      *
-     * Next three annotations should be moved to the `photoName` property!
+     * !!! Next three annotations should be moved to the `photoName` property
      *
      * @JMS\Expose
      * @JMS\SerializedName("photo")
@@ -190,3 +192,5 @@ class User
     private $photoFile;  
 }
 ```
+
+Voila! ^_^
