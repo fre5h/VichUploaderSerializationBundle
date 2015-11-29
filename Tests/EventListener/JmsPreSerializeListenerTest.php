@@ -11,6 +11,7 @@
 namespace Fresh\VichUploaderSerializationBundle\Tests\EventListener;
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Annotations\CachedReader;
 use Doctrine\Common\Cache\ArrayCache;
 use Fresh\VichUploaderSerializationBundle\EventListener\JmsPreSerializeListener;
@@ -61,16 +62,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        // Trigger the autoloading of annotations
-        class_exists('Doctrine\ORM\Mapping\Table');
-        class_exists('Doctrine\ORM\Mapping\Entity');
-        class_exists('JMS\Serializer\Annotation\ExclusionPolicy');
-        class_exists('JMS\Serializer\Annotation\Expose');
-        class_exists('JMS\Serializer\Annotation\SerializedName');
-        class_exists('JMS\Serializer\Annotation\Exclude');
-        class_exists('Vich\UploaderBundle\Mapping\Annotation\Uploadable');
-        class_exists('Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableClass');
-        class_exists('Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableField');
+        AnnotationRegistry::registerLoader('class_exists');
 
         // Mock storage
         $this->storage = $this->getMockBuilder('Vich\UploaderBundle\Storage\FileSystemStorage')
