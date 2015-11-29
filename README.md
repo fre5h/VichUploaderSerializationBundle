@@ -185,7 +185,7 @@ class User
      * @JMS\SerializedName("photo")
      * @Fresh\VichSerializableField("photoFile")
      *
-     * This annotation should left here
+     * !!! This annotation should be left here
      * @Vich\UploadableField(mapping="user_photo_mapping", fileNameProperty="photoName")
      */
     private $photoFile;  
