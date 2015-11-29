@@ -2,7 +2,7 @@
 
 Provides integration between [VichUploaderBundle](https://github.com/dustin10/VichUploaderBundle "VichUploaderBundle") and
 [JMSSerializerBundle](https://github.com/dustin10/VichUploaderBundle "JMSSerializerBundle").
-Allows to generate full or relative URIs to files mapped with `@Vich` and `@JMS` annotations during the serialization.
+Allows to generate full or relative URIs to entity fields mapped with `@Vich` and `@JMS` annotations during the serialization.
 
 [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/fre5h/VichUploaderSerializationBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/fre5h/VichUploaderSerializationBundle/)
 [![Build Status](https://img.shields.io/travis/fre5h/VichUploaderSerializationBundle.svg?style=flat-square)](https://travis-ci.org/fre5h/VichUploaderSerializationBundle)
@@ -10,7 +10,7 @@ Allows to generate full or relative URIs to files mapped with `@Vich` and `@JMS`
 [![License](https://img.shields.io/packagist/l/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
 [![Latest Stable Version](https://img.shields.io/packagist/v/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
 [![Total Downloads](https://img.shields.io/packagist/dt/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
-[![Dependency Status](https://img.shields.io/versioneye/d/php/fresh:vich-uploader-serialization-bundle.svg?style=flat-square)](https://www.versioneye.com/user/projects/565a0f4b036c32003d000008)
+[![Dependency Status](https://www.versioneye.com/user/projects/565a0f4b036c32003d000008/badge.svg?style=flat)](https://www.versioneye.com/user/projects/565a0f4b036c32003d000008)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93.svg?style=flat-square)](https://insight.sensiolabs.com/projects/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat-square)](https://gitter.im/fre5h/VichUploaderSerializationBundle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -47,12 +47,12 @@ At first you have to add `@VichSerializableClass` to the entity class which has 
 Then you have to add `@VichSerializableField` annotation to the uploadable field you want to serialize.
 
 Annotation `@Fresh\VichSerializableClass` does not have any option.  
-Annotation `@Fresh\VichSerializableField` has one required option `value` (or `field`) which value should link to the field with `@UploadableField` annotation.
+Annotation `@Fresh\VichSerializableField` has one required option `value` (or `field`) which value should link to the field with `@Vich\UploadableField` annotation.
 It can be set like this `@Fresh\VichSerializableField("photoFile")` or `@Fresh\VichSerializableField(field="photoFile")`.
 Also there is another option `includeHost`, it is not required and by default is set to `true`.
-But if you need you can exclude the host from generated URI user this `@Fresh\VichSerializableField("photoFile", includeHost=false)`.
+But if you need, you can exclude the host from the generated URI use the next variant of the annotation `@Fresh\VichSerializableField("photoFile", includeHost=false)`.
 
-And also don't forget the to serialize Vich uploadable fields they also should be marked with `@JMS` annotations.
+And also don't forget that to serialize Vich uploadable fields they also should be marked with `@JMS` annotations to be serialized.
 
 The generated URI by default:
 
