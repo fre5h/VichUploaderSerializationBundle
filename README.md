@@ -137,3 +137,56 @@ class User
     private $coverFile;    
 }
 ```
+
+### Don't make a mistake!
+
+Additional example of a wrong use of provided annotations to attract your attention.
+Use `@Fresh\VichSerializableField` **only with** the field which is mapped with `@ORM\Column`,
+because this field is mapped to a database and keeps the name of stored file.
+Don't use the `@Fresh\VichSerializableField` on the field which also mapped with `@Vich\UploadableField`, this is a wrong use and will
+throw an exception!
+
+So the next example is the **incorrect** use of provided annotation!
+
+```php
+<?php
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Fresh\VichUploaderSerializationBundle\Annotation as Fresh;
+use JMS\Serializer\Annotation as JMS;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+/**
+ * User Entity
+ *
+ * @ORM\Table(name="users")
+ * @ORM\Entity()
+ *
+ * @Vich\Uploadable
+ * @Fresh\VichSerializableClass
+ */
+class User
+{
+    /**
+     * @var string $photoName Photo name
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photoName;
+
+    /**
+     * @var File $photoFile Photo file
+     *
+     * Next three annotations should be moved to the `photoName` property!
+     *
+     * @JMS\Expose
+     * @JMS\SerializedName("photo")
+     
+     * @Fresh\VichSerializableField("photoFile")
+     *
+     * @Vich\UploadableField(mapping="user_photo_mapping", fileNameProperty="photoName")
+     */
+    private $photoFile;  
+}
+```
