@@ -36,7 +36,35 @@ public function registerBundles()
 
 ## Using
 
-### Example
+Bundle provides two annotations which allow the serialization of `@Vich\UploadableField` fields in your entities.
+At first you have to add `@VichSerializableClass` to the entity class which has uploadable fields.
+Then you have to add `@VichSerializableField` annotation to the uploadable field you want to serialize.
+
+Annotation `@VichSerializableClass` does not have any option.  
+Annotation `@VichSerializableField` has one required option `value` (or `field`) which value should link to the field with `@UploadableField` annotation.
+It can be set like this `@VichSerializableField("photoFile")` or `@VichSerializableField(field="photoFile")`.
+Also there is another option `includeHost`, it is not required and by default is set to `true`.
+But if you need you can exclude the host from generated URI `@VichSerializableField("photoFile", includeHost=false)`.
+
+The generated URI by default:
+
+```json
+{
+  "photo": "http://example.com/uploads/users/photos/5659828fa80a7.jpg",
+  "cover": "http://example.com/uploads/users/cover/456428fa8g4a8.jpg",
+}
+```
+
+The generated URI with `includeHost` set to `false`:
+
+```json
+{
+  "photo": "/uploads/users/photos/5659828fa80a7.jpg",
+  "cover": "/uploads/users/cover/456428fa8g4a8.jpg",
+}
+```
+
+### Example of entity with serialized uploadable fields
 
 ```php
 <?php
@@ -49,8 +77,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * User Entity
  *
- * @ORM\Table(name="candidates")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CandidateRepository")
+ * @ORM\Table(name="users")
+ * @ORM\Entity()
  *
  * @Vich\Uploadable
  * @Fresh\VichSerializableClass
@@ -65,7 +93,7 @@ class User
      * @JMS\Expose
      * @JMS\SerializedName("photo")
      *
-     * @Fresh\VichSerializableField("photoFile", includeHost=true)
+     * @Fresh\VichSerializableField("photoFile")
      */
     private $photoName;
 
@@ -77,5 +105,26 @@ class User
      * @Vich\UploadableField(mapping="user_photo_mapping", fileNameProperty="photoName")
      */
     private $photoFile;
+    
+    /**
+     * @var string $coverName Cover name
+     *
+     * @ORM\Column(type="string", length=255)
+     *
+     * @JMS\Expose
+     * @JMS\SerializedName("cover")
+     *
+     * @Fresh\VichSerializableField("coverFile", includeHost=false)
+     */
+    private $coverName;
+
+    /**
+     * @var File $coverFile Cover file
+     *
+     * @JMS\Exclude
+     *
+     * @Vich\UploadableField(mapping="user_cover_mapping", fileNameProperty="coverName")
+     */
+    private $coverFile;    
 }
 ```
