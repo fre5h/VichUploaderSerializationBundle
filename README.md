@@ -43,14 +43,14 @@ use Fresh\VichUploaderSerializationBundle\Annotation as Fresh;
 ```
 
 Bundle provides two annotations which allow the serialization of `@Vich\UploadableField` fields in your entities.
-At first you have to add `@VichSerializableClass` to the entity class which has uploadable fields.
-Then you have to add `@VichSerializableField` annotation to the uploadable field you want to serialize.
+At first you have to add `@Fresh\VichSerializableClass` to the entity class which has uploadable fields.
+Then you have to add `@Fresh\VichSerializableField` annotation to the uploadable field you want to serialize.
 
 Annotation `@Fresh\VichSerializableClass` does not have any option.  
-Annotation `@Fresh\VichSerializableField` has one required option `value` (or `field`) which value should link to the field with `@Vich\UploadableField` annotation.
+Annotation `@Fresh\VichSerializableField` has one required option *value* (or *field*) which value should link to the field with `@Vich\UploadableField` annotation.
 It can be set like this `@Fresh\VichSerializableField("photoFile")` or `@Fresh\VichSerializableField(field="photoFile")`.
-Also there is another option `includeHost`, it is not required and by default is set to `true`.
-But if you need, you can exclude the host from the generated URI use the next variant of the annotation `@Fresh\VichSerializableField("photoFile", includeHost=false)`.
+Also there is another option `includeHost`, it is not required and by default is set to **true**.
+But if you need, you can exclude the host from the generated URI, just use the next variant of the annotation `@Fresh\VichSerializableField("photoFile", includeHost=false)`.
 
 And also don't forget that to serialize Vich uploadable fields they also should be marked with `@JMS` annotations to be serialized.
 
@@ -141,11 +141,11 @@ class User
 
 ### Don't make a mistake!
 
-Additional example of a wrong use of provided annotations to attract your attention.
+Additional example of a **wrong use** of provided annotations to attract your attention.
 Use `@Fresh\VichSerializableField` **only with** the field which is mapped with `@ORM\Column`,
 because this field is mapped to a database and keeps the name of stored file.
-Don't use the `@Fresh\VichSerializableField` on the field which also mapped with `@Vich\UploadableField`, this is a wrong use and will
-throw an exception!
+Don't use the `@Fresh\VichSerializableField` with a field which also mapped with `@Vich\UploadableField`,
+this is a wrong use case and will throw an exception!
 
 So the next example is the **incorrect** use of provided annotations! Don't do so!
 
@@ -181,12 +181,11 @@ class User
      * @var File $photoFile Photo file
      *
      * !!! Next three annotations should be moved to the `photoName` property
-     *
      * @JMS\Expose
      * @JMS\SerializedName("photo")
-     
      * @Fresh\VichSerializableField("photoFile")
      *
+     * This annotation should left here
      * @Vich\UploadableField(mapping="user_photo_mapping", fileNameProperty="photoName")
      */
     private $photoFile;  
