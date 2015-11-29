@@ -192,4 +192,6 @@ class User
 }
 ```
 
+***
+
 Voila! ^_^
