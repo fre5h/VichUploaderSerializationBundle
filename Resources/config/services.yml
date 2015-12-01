@@ -5,10 +5,10 @@ services:
     vich_uploader.jms_serializer.listener:
         class: %vich_uploader.jms_serializer.listener.class%
         arguments:
-            - @vich_uploader.storage
-            - @router.request_context
-            - @annotations.cached_reader
-            - @logger
+            - "@vich_uploader.storage"
+            - "@router.request_context"
+            - "@annotations.cached_reader"
+            - "@logger"
         tags:
             - { name: jms_serializer.event_listener, event: serializer.pre_serialize, method: onPreSerialize }
             - { name: monolog.logger, channel: vich_uploader_serialization }
