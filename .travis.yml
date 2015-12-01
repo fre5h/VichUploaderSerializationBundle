@@ -2,13 +2,13 @@ language: php
 sudo: false
 
 php:
-  - 5.6
+  - 5.4
   - 7.0
   - hhvm
 
 env:
   - SYMFONY_VERSION=2.7.*
-  - SYMFONY_VERSION=3.0.*@dev
+  - SYMFONY_VERSION=3.0.*
 
 allow_failures:
   - php: hhvm
