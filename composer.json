@@ -28,7 +28,6 @@
         "squizlabs/php_codesniffer": "dev-master",
         "escapestudios/symfony2-coding-standard": "~2.7"
     },
-    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Fresh\\VichUploaderSerializationBundle\\": ""
