@@ -18,7 +18,7 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 
 ## Installation
 
-```php composer.phar require fresh/vich-uploader-serialization-bundle='v1.0.0'```
+```php composer.phar require fresh/vich-uploader-serialization-bundle='~1.0'```
 
 ### Register the bundle
 
