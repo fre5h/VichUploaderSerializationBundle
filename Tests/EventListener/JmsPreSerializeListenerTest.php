@@ -161,4 +161,27 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
         $this->assertEquals('/uploads/cover.jpg', $user->getCoverName());
     }
+
+    /**
+     * Test serialization of the same object twice
+     */
+    public function testSerializationOfTheSameObjectTwice()
+    {
+        $user1 = (new Fixtures\UserA())
+            ->setPhotoName('photo.jpg')
+            ->setCoverName('cover.jpg');
+
+        $context = DeserializationContext::create();
+        $event = new ObjectEvent($context, $user1, []);
+        $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
+
+        $this->assertEquals('http://example.com/uploads/photo.jpg', $user1->getPhotoName());
+        $this->assertEquals('http://example.com/uploads/cover.jpg', $user1->getCoverName());
+
+        $event = new ObjectEvent($context, $user1, []);
+        $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
+
+        $this->assertEquals('http://example.com/uploads/photo.jpg', $user1->getPhotoName());
+        $this->assertEquals('http://example.com/uploads/cover.jpg', $user1->getCoverName());
+    }
 }
