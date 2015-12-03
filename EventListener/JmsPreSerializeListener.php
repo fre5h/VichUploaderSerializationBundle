@@ -49,6 +49,11 @@ class JmsPreSerializeListener
     private $logger;
 
     /**
+     * @var array $serializedObjects Serialized objects
+     */
+    private $serializedObjects = [];
+
+    /**
      * Constructor
      *
      * @param StorageInterface $storage          Vich storage
@@ -76,6 +81,11 @@ class JmsPreSerializeListener
     public function onPreSerialize(ObjectEvent $event)
     {
         $object = $event->getObject();
+
+        $objectUid = spl_object_hash($object);
+        if (in_array($objectUid, $this->serializedObjects)) {
+            return;
+        }
 
         $classAnnotation = $this->annotationReader->getClassAnnotation(
             new \ReflectionClass(ClassUtils::getClass($object)),
@@ -117,6 +127,8 @@ class JmsPreSerializeListener
                     $property->setValue($object, $uri);
                 }
             }
+
+            $this->serializedObjects[$objectUid] = $objectUid;
         }
     }
 
