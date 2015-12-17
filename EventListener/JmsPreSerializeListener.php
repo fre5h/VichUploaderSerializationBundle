@@ -93,7 +93,7 @@ class JmsPreSerializeListener
         );
 
         if ($classAnnotation instanceof VichSerializableClass) {
-            $reflectionClass = ClassUtils::newReflectionClass($object);
+            $reflectionClass = ClassUtils::newReflectionClass(get_class($object));
             $this->logger->debug(sprintf('Found @VichSerializableClass annotation for the class "%s"', $reflectionClass->getName()));
 
             foreach ($reflectionClass->getProperties() as $property) {
