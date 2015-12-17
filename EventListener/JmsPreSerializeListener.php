@@ -121,7 +121,7 @@ class JmsPreSerializeListener
                     if ($property->getValue($event->getObject())) {
                         $uri = $this->storage->resolveUri($object, $vichSerializableAnnotation->getField());
                         if ($vichSerializableAnnotation->isIncludeHost()) {
-                            $uri = $this->getSchemeAndHost().$uri;
+                            $uri = $this->getHostUrl().$uri;
                         }
                     }
                     $property->setValue($object, $uri);
@@ -133,12 +133,22 @@ class JmsPreSerializeListener
     }
 
     /**
-     * Get scheme and host
+     * Get host url (scheme, host, port)
      *
-     * @return string Scheme and host
+     * @return string Host url
      */
-    private function getSchemeAndHost()
+    private function getHostUrl()
     {
-        return $this->requestContext->getScheme().'://'.$this->requestContext->getHost();
+        $url = $this->requestContext->getScheme().'://'.$this->requestContext->getHost();
+
+        if ($this->requestContext->getScheme() == 'http' && $this->requestContext->getHttpPort() != 80) {
+            $url .= ':'.$this->requestContext->getHttpPort();
+        }
+
+        if ($this->requestContext->getScheme() == 'https' && $this->requestContext->getHttpsPort() != 443) {
+            $url .= ':'.$this->requestContext->getHttpsPort();
+        }
+
+        return $url;
     }
 }
