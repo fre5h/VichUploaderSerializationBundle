@@ -72,17 +72,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
                       ->method('resolveUri')
                       ->will($this->onConsecutiveCalls('/uploads/photo.jpg', '/uploads/cover.jpg'));
 
-        // Mock Request contest
-        $this->requestContext = $this->getMockBuilder('Symfony\Component\Routing\RequestContext')
-                                     ->disableOriginalConstructor()
-                                     ->getMock();
-        $this->requestContext->expects($this->any())
-                             ->method('getScheme')
-                             ->willReturn('http');
-        $this->requestContext->expects($this->any())
-                             ->method('getHost')
-                             ->willReturn('example.com');
-
         $this->annotationReader = new CachedReader(new AnnotationReader(), new ArrayCache());
 
         // Mock logger
@@ -90,11 +79,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
                              ->disableOriginalConstructor()
                              ->setMethods(['debug'])
                              ->getMock();
-
-        $this->dispatcher = new EventDispatcher();
-        $listener = new JmsPreSerializeListener($this->storage, $this->requestContext, $this->annotationReader, $this->logger);
-
-        $this->dispatcher->addListener(JmsEvents::PRE_SERIALIZE, [$listener, 'onPreSerialize']);
     }
 
     /**
@@ -114,6 +98,8 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSerializationWithIncludedHost()
     {
+        $this->generateRequestContext();
+
         $user = (new Fixtures\UserA())
             ->setPhotoName('photo.jpg')
             ->setCoverName('cover.jpg');
@@ -127,10 +113,50 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test serialization with included http host and port in the URI
+     */
+    public function testSerializationWithIncludedHttpHostAndPort()
+    {
+        $this->generateRequestContext(false, true);
+
+        $user = (new Fixtures\UserA())
+            ->setPhotoName('photo.jpg')
+            ->setCoverName('cover.jpg');
+
+        $context = DeserializationContext::create();
+        $event = new ObjectEvent($context, $user, []);
+        $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
+
+        $this->assertEquals('http://example.com:8000/uploads/photo.jpg', $user->getPhotoName());
+        $this->assertEquals('http://example.com:8000/uploads/cover.jpg', $user->getCoverName());
+    }
+
+    /**
+     * Test serialization with included https host and port in the URI
+     */
+    public function testSerializationWithIncludedHttpsHostAndPort()
+    {
+        $this->generateRequestContext(true, true);
+
+        $user = (new Fixtures\UserA())
+            ->setPhotoName('photo.jpg')
+            ->setCoverName('cover.jpg');
+
+        $context = DeserializationContext::create();
+        $event = new ObjectEvent($context, $user, []);
+        $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
+
+        $this->assertEquals('https://example.com:8800/uploads/photo.jpg', $user->getPhotoName());
+        $this->assertEquals('https://example.com:8800/uploads/cover.jpg', $user->getCoverName());
+    }
+
+    /**
      * Test serialization without included host in the URI
      */
     public function testSerializationWithoutIncludedHost()
     {
+        $this->generateRequestContext();
+
         $user = (new Fixtures\UserB())
             ->setPhotoName('photo.jpg')
             ->setCoverName('cover.jpg');
@@ -150,6 +176,8 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionForIncompatibleAnnotations()
     {
+        $this->generateRequestContext();
+
         $user = (new Fixtures\UserC())
             ->setPhotoName('photo.jpg')
             ->setCoverName('cover.jpg');
@@ -167,6 +195,8 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSerializationOfTheSameObjectTwice()
     {
+        $this->generateRequestContext();
+
         $user1 = (new Fixtures\UserA())
             ->setPhotoName('photo.jpg')
             ->setCoverName('cover.jpg');
@@ -183,5 +213,54 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('http://example.com/uploads/photo.jpg', $user1->getPhotoName());
         $this->assertEquals('http://example.com/uploads/cover.jpg', $user1->getCoverName());
+    }
+
+    /**
+     *
+     * @param bool $https
+     * @param bool $port
+     */
+    protected function generateRequestContext($https = false, $port = false)
+    {
+
+        // Mock Request contest
+        $this->requestContext = $this->getMockBuilder('Symfony\Component\Routing\RequestContext')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $scheme = ($https) ? 'https':'http';
+
+        $this->requestContext->expects($this->any())
+            ->method('getScheme')
+            ->willReturn($scheme);
+
+        $this->requestContext->expects($this->any())
+            ->method('getHost')
+            ->willReturn('example.com');
+
+        if ($port) {
+            if ($https) {
+                $this->requestContext->expects($this->any())
+                    ->method('getHttpsPort')
+                    ->willReturn(8800);
+            } else {
+                $this->requestContext->expects($this->any())
+                    ->method('getHttpPort')
+                    ->willReturn(8000);
+            }
+        }
+
+        $this->addEventListener();
+    }
+
+    /**
+     * Add pre serialize event listener
+     */
+    protected function addEventListener()
+    {
+        $this->dispatcher = new EventDispatcher();
+        $listener = new JmsPreSerializeListener($this->storage, $this->requestContext, $this->annotationReader, $this->logger);
+
+        $this->dispatcher->addListener(JmsEvents::PRE_SERIALIZE, [$listener, 'onPreSerialize']);
     }
 }
