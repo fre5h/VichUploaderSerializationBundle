@@ -143,9 +143,7 @@ class JmsPreSerializeListener
 
         if ($this->requestContext->getScheme() == 'http' && $this->requestContext->getHttpPort() && $this->requestContext->getHttpPort() != 80) {
             $url .= ':'.$this->requestContext->getHttpPort();
-        }
-
-        if ($this->requestContext->getScheme() == 'https' && $this->requestContext->getHttpsPort() && $this->requestContext->getHttpsPort() != 443) {
+        } elseif ($this->requestContext->getScheme() == 'https' && $this->requestContext->getHttpsPort() && $this->requestContext->getHttpsPort() != 443) {
             $url .= ':'.$this->requestContext->getHttpsPort();
         }
 
