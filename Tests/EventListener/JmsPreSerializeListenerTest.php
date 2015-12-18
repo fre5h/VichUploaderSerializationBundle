@@ -94,53 +94,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     *
-     * @param bool $https
-     * @param bool $port
-     */
-    protected function generateRequestContext($https = false, $port = false) {
-
-        // Mock Request contest
-        $this->requestContext = $this->getMockBuilder('Symfony\Component\Routing\RequestContext')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $scheme = ($https) ? 'https':'http';
-
-        $this->requestContext->expects($this->any())
-            ->method('getScheme')
-            ->willReturn($scheme);
-
-        $this->requestContext->expects($this->any())
-            ->method('getHost')
-            ->willReturn('example.com');
-
-        if ($port) {
-            if ($https) {
-                $this->requestContext->expects($this->any())
-                    ->method('getHttpsPort')
-                    ->willReturn(8800);
-            } else {
-                $this->requestContext->expects($this->any())
-                    ->method('getHttpPort')
-                    ->willReturn(8000);
-            }
-        }
-
-        $this->addEventListener();
-    }
-
-    /**
-     * Add pre serialize event listener
-     */
-    protected function addEventListener() {
-        $this->dispatcher = new EventDispatcher();
-        $listener = new JmsPreSerializeListener($this->storage, $this->requestContext, $this->annotationReader, $this->logger);
-
-        $this->dispatcher->addListener(JmsEvents::PRE_SERIALIZE, [$listener, 'onPreSerialize']);
-    }
-
-    /**
      * Test serialization with included host in the URI
      */
     public function testSerializationWithIncludedHost()
@@ -164,7 +117,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSerializationWithIncludedHttpHostAndPort()
     {
-        $this->generateRequestContext(false,true);
+        $this->generateRequestContext(false, true);
 
         $user = (new Fixtures\UserA())
             ->setPhotoName('photo.jpg')
@@ -183,7 +136,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSerializationWithIncludedHttpsHostAndPort()
     {
-        $this->generateRequestContext(true,true);
+        $this->generateRequestContext(true, true);
 
         $user = (new Fixtures\UserA())
             ->setPhotoName('photo.jpg')
@@ -260,5 +213,54 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('http://example.com/uploads/photo.jpg', $user1->getPhotoName());
         $this->assertEquals('http://example.com/uploads/cover.jpg', $user1->getCoverName());
+    }
+
+    /**
+     *
+     * @param bool $https
+     * @param bool $port
+     */
+    protected function generateRequestContext($https = false, $port = false)
+    {
+
+        // Mock Request contest
+        $this->requestContext = $this->getMockBuilder('Symfony\Component\Routing\RequestContext')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $scheme = ($https) ? 'https':'http';
+
+        $this->requestContext->expects($this->any())
+            ->method('getScheme')
+            ->willReturn($scheme);
+
+        $this->requestContext->expects($this->any())
+            ->method('getHost')
+            ->willReturn('example.com');
+
+        if ($port) {
+            if ($https) {
+                $this->requestContext->expects($this->any())
+                    ->method('getHttpsPort')
+                    ->willReturn(8800);
+            } else {
+                $this->requestContext->expects($this->any())
+                    ->method('getHttpPort')
+                    ->willReturn(8000);
+            }
+        }
+
+        $this->addEventListener();
+    }
+
+    /**
+     * Add pre serialize event listener
+     */
+    protected function addEventListener()
+    {
+        $this->dispatcher = new EventDispatcher();
+        $listener = new JmsPreSerializeListener($this->storage, $this->requestContext, $this->annotationReader, $this->logger);
+
+        $this->dispatcher->addListener(JmsEvents::PRE_SERIALIZE, [$listener, 'onPreSerialize']);
     }
 }
