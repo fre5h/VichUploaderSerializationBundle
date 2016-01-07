@@ -82,8 +82,7 @@ class JmsPreSerializeListener
     {
         $object = $event->getObject();
 
-        if (
-            $object instanceof \Doctrine\Common\Persistence\Proxy
+        if ($object instanceof \Doctrine\Common\Persistence\Proxy
             && ! $object->__isInitialized()
         ) {
             $object->__load();

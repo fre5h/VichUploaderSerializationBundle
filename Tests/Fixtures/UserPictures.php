@@ -91,7 +91,8 @@ class UserPictures implements Proxy
     /**
      * @inheritdoc
      */
-    public function __load() {
+    public function __load()
+    {
         $this->setPhotoName('photo.jpg')
             ->setCoverName('cover.jpg');
         $this->status = true;
@@ -99,8 +100,10 @@ class UserPictures implements Proxy
 
     /**
      * @inheritdoc
+     * @return bool
      */
-    public function __isInitialized() {
+    public function __isInitialized()
+    {
         return $this->status;
     }
 
