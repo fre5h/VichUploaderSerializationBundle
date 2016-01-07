@@ -216,6 +216,25 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test serialization of proxy object
+     */
+    public function testSerializationOfTheProxyObject()
+    {
+        $this->generateRequestContext();
+
+        $picture = new Fixtures\UserPictures();
+        $picture->setPhotoName('photo.jpg')
+            ->setCoverName('cover.jpg');
+
+        $context = DeserializationContext::create();
+        $event = new ObjectEvent($context, $picture, []);
+        $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
+
+        $this->assertEquals('http://example.com/uploads/photo.jpg', $picture->getPhotoName());
+        $this->assertEquals('http://example.com/uploads/cover.jpg', $picture->getCoverName());
+    }
+
+    /**
      *
      * @param bool $https
      * @param bool $port

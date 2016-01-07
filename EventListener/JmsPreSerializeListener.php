@@ -82,6 +82,12 @@ class JmsPreSerializeListener
     {
         $object = $event->getObject();
 
+        if ($object instanceof \Doctrine\Common\Persistence\Proxy
+            && ! $object->__isInitialized()
+        ) {
+            $object->__load();
+        }
+
         $objectUid = spl_object_hash($object);
         if (in_array($objectUid, $this->serializedObjects)) {
             return;

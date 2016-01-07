@@ -15,11 +15,12 @@ use Fresh\VichUploaderSerializationBundle\Annotation as Fresh;
 use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Persistence\Proxy;
 
 /**
- * UserA Entity
+ * UserPictures Entity
  *
- * @ORM\Table(name="users")
+ * @ORM\Table(name="userPictures")
  * @ORM\Entity()
  *
  * @JMS\ExclusionPolicy("all")
@@ -27,8 +28,19 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @Vich\Uploadable
  * @Fresh\VichSerializableClass
  */
-class UserA
+class UserPictures implements Proxy
 {
+    /**
+     * @ORM\ManyToOne(targetEntity="Fresh\VichUploaderSerializationBundle\Tests\Fixtures\UserA", inversedBy="pictures")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $userId;
+
     /**
      * @var string $photoName Photo name
      *
@@ -72,9 +84,28 @@ class UserA
     private $coverFile;
 
     /**
-     * @ORM\OneToMany(targetEntity="Fresh\VichUploaderSerializationBundle\Tests\Fixtures\UserPictures", mappedBy="user")
+     * @var bool
      */
-    protected $userPictures;
+    private $status = false;
+
+    /**
+     * @inheritdoc
+     */
+    public function __load()
+    {
+        $this->setPhotoName('photo.jpg')
+            ->setCoverName('cover.jpg');
+        $this->status = true;
+    }
+
+    /**
+     * @inheritdoc
+     * @return bool
+     */
+    public function __isInitialized()
+    {
+        return $this->status;
+    }
 
     /**
      * To string
@@ -83,7 +114,7 @@ class UserA
      */
     public function __toString()
     {
-        $result = 'New User';
+        $result = 'New Photo';
 
         return $result;
     }
@@ -185,36 +216,50 @@ class UserA
     }
 
     /**
-     * Add userPictures
+     * Set userId
      *
-     * @param UserPictures $userPictures
+     * @param integer $userId
      *
      * @return $this
      */
-    public function addUserPictures(UserPictures $userPictures)
+    public function setUserId($userId)
     {
-        $this->userPictures[] = $userPictures;
+        $this->userId = $userId;
 
         return $this;
     }
 
     /**
-     * Remove userPictures
+     * Get userId
      *
-     * @param UserPictures $userPictures
+     * @return integer
      */
-    public function removeUserPictures(UserPictures $userPictures)
+    public function getUserId()
     {
-        $this->userPictures->removeElement($userPictures);
+        return $this->userId;
     }
 
     /**
-     * Get userPictures
+     * Set user
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param UserA $user
+     *
+     * @return $this
      */
-    public function getUserPictures()
+    public function setUser(UserA $user = null)
     {
-        return $this->userPictures;
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return UserA
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
