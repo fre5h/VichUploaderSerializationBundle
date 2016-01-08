@@ -127,8 +127,8 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $event   = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
-        $this->assertEquals('http://example.com:80/uploads/photo.jpg', $user->getPhotoName());
-        $this->assertEquals('http://example.com:80/uploads/cover.jpg', $user->getCoverName());
+        $this->assertEquals('http://example.com:8000/uploads/photo.jpg', $user->getPhotoName());
+        $this->assertEquals('http://example.com:8000/uploads/cover.jpg', $user->getCoverName());
     }
 
     /**
@@ -146,8 +146,8 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $event   = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
-        $this->assertEquals('https://example.com:443/uploads/photo.jpg', $user->getPhotoName());
-        $this->assertEquals('https://example.com:443/uploads/cover.jpg', $user->getCoverName());
+        $this->assertEquals('https://example.com:8800/uploads/photo.jpg', $user->getPhotoName());
+        $this->assertEquals('https://example.com:8800/uploads/cover.jpg', $user->getCoverName());
     }
 
     /**
@@ -261,11 +261,11 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             if ($https) {
                 $this->requestContext->expects($this->any())
                                      ->method('getHttpsPort')
-                                     ->willReturn(443);
+                                     ->willReturn(8800);
             } else {
                 $this->requestContext->expects($this->any())
                                      ->method('getHttpPort')
-                                     ->willReturn(80);
+                                     ->willReturn(8000);
             }
         }
 
