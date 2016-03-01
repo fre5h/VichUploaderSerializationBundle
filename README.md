@@ -194,4 +194,6 @@ class User
 
 ***
 
-Voila! ^_^
+## Contributing
+
+See [CONTRIBUTING](https://github.com/geocoder-php/BazingaGeocoderBundle/blob/master/CONTRIBUTING.md) file.
