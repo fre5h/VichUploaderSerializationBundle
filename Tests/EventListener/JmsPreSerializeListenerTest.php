@@ -105,7 +105,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event = new ObjectEvent($context, $user, []);
+        $event   = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
         $this->assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
@@ -124,7 +124,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event = new ObjectEvent($context, $user, []);
+        $event   = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
         $this->assertEquals('http://example.com:8000/uploads/photo.jpg', $user->getPhotoName());
@@ -143,7 +143,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event = new ObjectEvent($context, $user, []);
+        $event   = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
         $this->assertEquals('https://example.com:8800/uploads/photo.jpg', $user->getPhotoName());
@@ -162,7 +162,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event = new ObjectEvent($context, $user, []);
+        $event   = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserB::class, $context->getFormat(), $event);
 
         $this->assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
@@ -183,7 +183,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event = new ObjectEvent($context, $user, []);
+        $event   = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserC::class, $context->getFormat(), $event);
 
         $this->assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
@@ -197,22 +197,22 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->generateRequestContext();
 
-        $user1 = (new Fixtures\UserA())
+        $user = (new Fixtures\UserA())
             ->setPhotoName('photo.jpg')
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event = new ObjectEvent($context, $user1, []);
+        $event   = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
-        $this->assertEquals('http://example.com/uploads/photo.jpg', $user1->getPhotoName());
-        $this->assertEquals('http://example.com/uploads/cover.jpg', $user1->getCoverName());
+        $this->assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
+        $this->assertEquals('http://example.com/uploads/cover.jpg', $user->getCoverName());
 
-        $event = new ObjectEvent($context, $user1, []);
+        $event = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
-        $this->assertEquals('http://example.com/uploads/photo.jpg', $user1->getPhotoName());
-        $this->assertEquals('http://example.com/uploads/cover.jpg', $user1->getCoverName());
+        $this->assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
+        $this->assertEquals('http://example.com/uploads/cover.jpg', $user->getCoverName());
     }
 
     /**
@@ -222,12 +222,12 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->generateRequestContext();
 
-        $picture = new Fixtures\UserPictures();
+        $picture = new Fixtures\UserPicture();
         $picture->setPhotoName('photo.jpg')
-            ->setCoverName('cover.jpg');
+                ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event = new ObjectEvent($context, $picture, []);
+        $event   = new ObjectEvent($context, $picture, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
         $this->assertEquals('http://example.com/uploads/photo.jpg', $picture->getPhotoName());
@@ -235,37 +235,37 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Generate request context
      *
-     * @param bool $https
-     * @param bool $port
+     * @param bool $https HTTPS flag
+     * @param bool $port  Port
      */
     protected function generateRequestContext($https = false, $port = false)
     {
-
         // Mock Request contest
         $this->requestContext = $this->getMockBuilder('Symfony\Component\Routing\RequestContext')
-            ->disableOriginalConstructor()
-            ->getMock();
+                                     ->disableOriginalConstructor()
+                                     ->getMock();
 
-        $scheme = ($https) ? 'https':'http';
-
-        $this->requestContext->expects($this->any())
-            ->method('getScheme')
-            ->willReturn($scheme);
+        $scheme = ($https) ? 'https' : 'http';
 
         $this->requestContext->expects($this->any())
-            ->method('getHost')
-            ->willReturn('example.com');
+                             ->method('getScheme')
+                             ->willReturn($scheme);
+
+        $this->requestContext->expects($this->any())
+                             ->method('getHost')
+                             ->willReturn('example.com');
 
         if ($port) {
             if ($https) {
                 $this->requestContext->expects($this->any())
-                    ->method('getHttpsPort')
-                    ->willReturn(8800);
+                                     ->method('getHttpsPort')
+                                     ->willReturn(8800);
             } else {
                 $this->requestContext->expects($this->any())
-                    ->method('getHttpPort')
-                    ->willReturn(8000);
+                                     ->method('getHttpPort')
+                                     ->willReturn(8000);
             }
         }
 
@@ -278,7 +278,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
     protected function addEventListener()
     {
         $this->dispatcher = new EventDispatcher();
-        $listener = new JmsPreSerializeListener($this->storage, $this->requestContext, $this->annotationReader, $this->logger);
+        $listener         = new JmsPreSerializeListener($this->storage, $this->requestContext, $this->annotationReader, $this->logger);
 
         $this->dispatcher->addListener(JmsEvents::PRE_SERIALIZE, [$listener, 'onPreSerialize']);
     }

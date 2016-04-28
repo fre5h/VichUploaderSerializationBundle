@@ -11,6 +11,7 @@
 namespace Fresh\VichUploaderSerializationBundle\EventListener;
 
 use Doctrine\Common\Annotations\CachedReader;
+use Doctrine\Common\Persistence\Proxy;
 use Doctrine\Common\Util\ClassUtils;
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableField;
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableClass;
@@ -82,9 +83,7 @@ class JmsPreSerializeListener
     {
         $object = $event->getObject();
 
-        if ($object instanceof \Doctrine\Common\Persistence\Proxy
-            && ! $object->__isInitialized()
-        ) {
+        if ($object instanceof Proxy && !$object->__isInitialized()) {
             $object->__load();
         }
 

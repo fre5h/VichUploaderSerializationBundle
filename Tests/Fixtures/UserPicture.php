@@ -28,18 +28,15 @@ use Doctrine\Common\Persistence\Proxy;
  * @Vich\Uploadable
  * @Fresh\VichSerializableClass
  */
-class UserPictures implements Proxy
+class UserPicture implements Proxy
 {
     /**
+     * @var UserA $user User
+     *
      * @ORM\ManyToOne(targetEntity="Fresh\VichUploaderSerializationBundle\Tests\Fixtures\UserA", inversedBy="pictures")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    protected $user;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $userId;
+    private $user;
 
     /**
      * @var string $photoName Photo name
@@ -84,7 +81,7 @@ class UserPictures implements Proxy
     private $coverFile;
 
     /**
-     * @var bool
+     * @var bool $status Status
      */
     private $status = false;
 
@@ -94,13 +91,12 @@ class UserPictures implements Proxy
     public function __load()
     {
         $this->setPhotoName('photo.jpg')
-            ->setCoverName('cover.jpg');
+             ->setCoverName('cover.jpg');
         $this->status = true;
     }
 
     /**
-     * @inheritdoc
-     * @return bool
+     * {@inheritdoc}
      */
     public function __isInitialized()
     {
@@ -114,9 +110,33 @@ class UserPictures implements Proxy
      */
     public function __toString()
     {
-        $result = 'New Photo';
+        $result = 'New User Picture';
 
         return $result;
+    }
+
+    /**
+     * Set user
+     *
+     * @param UserA $user User
+     *
+     * @return $this
+     */
+    public function setUser(UserA $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return UserA User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
@@ -213,53 +233,5 @@ class UserPictures implements Proxy
         $this->coverFile = $coverFile;
 
         return $this;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     *
-     * @return $this
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer
-     */
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    /**
-     * Set user
-     *
-     * @param UserA $user
-     *
-     * @return $this
-     */
-    public function setUser(UserA $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return UserA
-     */
-    public function getUser()
-    {
-        return $this->user;
     }
 }

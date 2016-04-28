@@ -194,4 +194,6 @@ class User
 
 ***
 
-Voila! ^_^
+## Contributing
+
+See [CONTRIBUTING](https://github.com/fre5h/VichUploaderSerializationBundle/blob/master/CONTRIBUTING.md) file.

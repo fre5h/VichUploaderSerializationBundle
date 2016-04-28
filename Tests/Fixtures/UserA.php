@@ -72,6 +72,8 @@ class UserA
     private $coverFile;
 
     /**
+     * @var UserPicture[]|\Doctrine\Common\Collections\ArrayCollection $userPictures User pictures
+     *
      * @ORM\OneToMany(targetEntity="Fresh\VichUploaderSerializationBundle\Tests\Fixtures\UserPictures", mappedBy="user")
      */
     protected $userPictures;
@@ -185,33 +187,33 @@ class UserA
     }
 
     /**
-     * Add userPictures
+     * Add user picture
      *
-     * @param UserPictures $userPictures
+     * @param UserPicture $userPicture User picture
      *
      * @return $this
      */
-    public function addUserPictures(UserPictures $userPictures)
+    public function addUserPictures(UserPicture $userPicture)
     {
-        $this->userPictures[] = $userPictures;
+        $this->userPictures[] = $userPicture;
 
         return $this;
     }
 
     /**
-     * Remove userPictures
+     * Remove user picture
      *
-     * @param UserPictures $userPictures
+     * @param UserPicture $userPictures User picture
      */
-    public function removeUserPictures(UserPictures $userPictures)
+    public function removeUserPictures(UserPicture $userPictures)
     {
         $this->userPictures->removeElement($userPictures);
     }
 
     /**
-     * Get userPictures
+     * Get user picture
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return UserPicture[]|\Doctrine\Common\Collections\ArrayCollection
      */
     public function getUserPictures()
     {
