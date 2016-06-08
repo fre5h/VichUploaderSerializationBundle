@@ -3,7 +3,7 @@ parameters:
 
 services:
     vich_uploader.jms_serializer.listener:
-        class: %vich_uploader.jms_serializer.listener.class%
+        class: "%vich_uploader.jms_serializer.listener.class%"
         arguments:
             - "@vich_uploader.storage"
             - "@router.request_context"
