@@ -43,6 +43,9 @@ class VichSerializableFieldTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($annotation->isIncludeHost());
     }
 
+    /**
+     * @expectedException \LogicException
+     */
     public function testAnnotationWithoutOptions()
     {
         new VichSerializableField([]);
