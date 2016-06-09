@@ -13,7 +13,7 @@ namespace Fresh\VichUploaderSerializationBundle\Annotation;
 use Doctrine\ORM\Mapping\Annotation;
 
 /**
- * VichSerializableField
+ * VichSerializableField Annotation Class.
  *
  * @Annotation
  * @Target({"PROPERTY", "METHOD"})

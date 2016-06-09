@@ -14,7 +14,7 @@ use Fresh\VichUploaderSerializationBundle\DependencyInjection\FreshVichUploaderS
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * FreshVichUploaderSerializationExtensionTest
+ * FreshVichUploaderSerializationExtensionTest.
  *
  * @author Artem Genvald <genvaldartem@gmail.com>
  */
@@ -40,9 +40,6 @@ class FreshVichUploaderSerializationExtensionTest extends \PHPUnit_Framework_Tes
         $this->container->registerExtension($this->extension);
     }
 
-    /**
-     * Test load extension
-     */
     public function testLoadExtension()
     {
         // Add some dummy required services

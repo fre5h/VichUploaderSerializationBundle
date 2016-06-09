@@ -26,7 +26,7 @@ use Vich\UploaderBundle\Storage\StorageInterface;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
 
 /**
- * JmsPreSerializeListenerTest
+ * JmsPreSerializeListenerTest.
  *
  * @author Artem Genvald <genvaldartem@gmail.com>
  */
@@ -93,9 +93,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $this->logger           = null;
     }
 
-    /**
-     * Test serialization with included host in the URI
-     */
     public function testSerializationWithIncludedHost()
     {
         $this->generateRequestContext();
@@ -112,9 +109,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com/uploads/cover.jpg', $user->getCoverName());
     }
 
-    /**
-     * Test serialization with included http host and port in the URI
-     */
     public function testSerializationWithIncludedHttpHostAndPort()
     {
         $this->generateRequestContext(false, true);
@@ -131,9 +125,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com:8000/uploads/cover.jpg', $user->getCoverName());
     }
 
-    /**
-     * Test serialization with included https host and port in the URI
-     */
     public function testSerializationWithIncludedHttpsHostAndPort()
     {
         $this->generateRequestContext(true, true);
@@ -150,9 +141,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('https://example.com:8800/uploads/cover.jpg', $user->getCoverName());
     }
 
-    /**
-     * Test serialization without included host in the URI
-     */
     public function testSerializationWithoutIncludedHost()
     {
         $this->generateRequestContext();
@@ -170,8 +158,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test serialization without included host in the URI
-     *
      * @expectedException \Fresh\VichUploaderSerializationBundle\Exception\IncompatibleUploadableAndSerializableFieldAnnotationException
      */
     public function testExceptionForIncompatibleAnnotations()
@@ -190,9 +176,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('/uploads/cover.jpg', $user->getCoverName());
     }
 
-    /**
-     * Test serialization of the same object twice
-     */
     public function testSerializationOfTheSameObjectTwice()
     {
         $this->generateRequestContext();
@@ -215,9 +198,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com/uploads/cover.jpg', $user->getCoverName());
     }
 
-    /**
-     * Test serialization of proxy object
-     */
     public function testSerializationOfTheProxyObject()
     {
         $this->generateRequestContext();
@@ -234,12 +214,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com/uploads/cover.jpg', $picture->getCoverName());
     }
 
-    /**
-     * Generate request context
-     *
-     * @param bool $https HTTPS flag
-     * @param bool $port  Port
-     */
     protected function generateRequestContext($https = false, $port = false)
     {
         // Mock Request contest
@@ -272,9 +246,6 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $this->addEventListener();
     }
 
-    /**
-     * Add pre serialize event listener
-     */
     protected function addEventListener()
     {
         $this->dispatcher = new EventDispatcher();

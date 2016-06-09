@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * UserA Entity
+ * UserA Entity.
  *
  * @ORM\Table(name="users")
  * @ORM\Entity()
@@ -79,7 +79,7 @@ class UserA
     protected $userPictures;
 
     /**
-     * To string
+     * To string.
      *
      * @return string
      */
@@ -91,7 +91,7 @@ class UserA
     }
 
     /**
-     * Get photo name
+     * Get photo name.
      *
      * @return string Photo name
      */
@@ -101,7 +101,7 @@ class UserA
     }
 
     /**
-     * Set photo name
+     * Set photo name.
      *
      * @param string $photoName Photo name
      *
@@ -115,7 +115,7 @@ class UserA
     }
 
     /**
-     * Get photo file
+     * Get photo file.
      *
      * @return File Photo file
      */
@@ -125,7 +125,7 @@ class UserA
     }
 
     /**
-     * Set photo file
+     * Set photo file.
      *
      * @param File $photoFile Photo file
      *
@@ -139,7 +139,7 @@ class UserA
     }
 
     /**
-     * Get cover name
+     * Get cover name.
      *
      * @return string Cover name
      */
@@ -149,7 +149,7 @@ class UserA
     }
 
     /**
-     * Set cover name
+     * Set cover name.
      *
      * @param string $coverName Cover name
      *
@@ -163,7 +163,7 @@ class UserA
     }
 
     /**
-     * Get cover file
+     * Get cover file.
      *
      * @return File Cover file
      */
@@ -173,7 +173,7 @@ class UserA
     }
 
     /**
-     * Set cover file
+     * Set cover file.
      *
      * @param File $coverFile Cover file
      *
@@ -187,7 +187,7 @@ class UserA
     }
 
     /**
-     * Add user picture
+     * Add user picture.
      *
      * @param UserPicture $userPicture User picture
      *
@@ -201,7 +201,7 @@ class UserA
     }
 
     /**
-     * Remove user picture
+     * Remove user picture.
      *
      * @param UserPicture $userPictures User picture
      */
@@ -211,7 +211,7 @@ class UserA
     }
 
     /**
-     * Get user picture
+     * Get user picture.
      *
      * @return UserPicture[]|\Doctrine\Common\Collections\ArrayCollection
      */

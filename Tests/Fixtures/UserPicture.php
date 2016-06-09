@@ -18,7 +18,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Persistence\Proxy;
 
 /**
- * UserPictures Entity
+ * UserPictures Entity.
  *
  * @ORM\Table(name="userPictures")
  * @ORM\Entity()
@@ -104,7 +104,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * To string
+     * To string.
      *
      * @return string
      */
@@ -116,7 +116,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param UserA $user User
      *
@@ -130,7 +130,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return UserA User
      */
@@ -140,7 +140,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Get photo name
+     * Get photo name.
      *
      * @return string Photo name
      */
@@ -150,7 +150,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Set photo name
+     * Set photo name.
      *
      * @param string $photoName Photo name
      *
@@ -164,7 +164,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Get photo file
+     * Get photo file.
      *
      * @return File Photo file
      */
@@ -174,7 +174,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Set photo file
+     * Set photo file.
      *
      * @param File $photoFile Photo file
      *
@@ -188,7 +188,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Get cover name
+     * Get cover name.
      *
      * @return string Cover name
      */
@@ -198,7 +198,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Set cover name
+     * Set cover name.
      *
      * @param string $coverName Cover name
      *
@@ -212,7 +212,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Get cover file
+     * Get cover file.
      *
      * @return File Cover file
      */
@@ -222,7 +222,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Set cover file
+     * Set cover file.
      *
      * @param File $coverFile Cover file
      *

@@ -11,7 +11,7 @@
 namespace Fresh\VichUploaderSerializationBundle\Exception;
 
 /**
- * IncompatibleUploadableAndSerializableFieldAnnotationException
+ * IncompatibleUploadableAndSerializableFieldAnnotationException.
  *
  * @author Artem Genvald <genvaldartem@gmail.com>
  */

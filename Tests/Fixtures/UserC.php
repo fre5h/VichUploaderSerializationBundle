@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * UserC Entity
+ * UserC Entity.
  *
  * @ORM\Table(name="users")
  * @ORM\Entity()
@@ -72,7 +72,7 @@ class UserC
     private $coverFile;
 
     /**
-     * To string
+     * To string.
      *
      * @return string
      */
@@ -84,7 +84,7 @@ class UserC
     }
 
     /**
-     * Get photo name
+     * Get photo name.
      *
      * @return string Photo name
      */
@@ -94,7 +94,7 @@ class UserC
     }
 
     /**
-     * Set photo name
+     * Set photo name.
      *
      * @param string $photoName Photo name
      *
@@ -108,7 +108,7 @@ class UserC
     }
 
     /**
-     * Get photo file
+     * Get photo file.
      *
      * @return File Photo file
      */
@@ -118,7 +118,7 @@ class UserC
     }
 
     /**
-     * Set photo file
+     * Set photo file.
      *
      * @param File $photoFile Photo file
      *
@@ -132,7 +132,7 @@ class UserC
     }
 
     /**
-     * Get cover name
+     * Get cover name.
      *
      * @return string Cover name
      */
@@ -142,7 +142,7 @@ class UserC
     }
 
     /**
-     * Set cover name
+     * Set cover name.
      *
      * @param string $coverName Cover name
      *
@@ -156,7 +156,7 @@ class UserC
     }
 
     /**
-     * Get cover file
+     * Get cover file.
      *
      * @return File Cover file
      */
@@ -166,7 +166,7 @@ class UserC
     }
 
     /**
-     * Set cover file
+     * Set cover file.
      *
      * @param File $coverFile Cover file
      *

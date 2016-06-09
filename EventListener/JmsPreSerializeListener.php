@@ -23,7 +23,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
 /**
- * Class JmsPreSerializeListener
+ * JmsPreSerializeListener Class.
  *
  * @author Artem Genvald <genvaldartem@gmail.com>
  */
@@ -55,7 +55,7 @@ class JmsPreSerializeListener
     private $serializedObjects = [];
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param StorageInterface $storage          Vich storage
      * @param RequestContext   $requestContext   Request context
@@ -75,7 +75,7 @@ class JmsPreSerializeListener
     }
 
     /**
-     * On pre serialize
+     * On pre serialize.
      *
      * @param ObjectEvent $event Event
      */
@@ -138,7 +138,7 @@ class JmsPreSerializeListener
     }
 
     /**
-     * Get host url (scheme, host, port)
+     * Get host url (scheme, host, port).
      *
      * @return string Host url
      */

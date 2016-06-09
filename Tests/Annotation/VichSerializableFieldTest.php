@@ -13,15 +13,12 @@ namespace Fresh\VichUploaderSerializationBundle\Tests\Annotation;
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableField;
 
 /**
- * VichSerializableFieldTest
+ * VichSerializableFieldTest.
  *
  * @author Artem Genvald <genvaldartem@gmail.com>
  */
 class VichSerializableFieldTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Test annotation with `value` option
-     */
     public function testValueOption()
     {
         $annotation = new VichSerializableField(['value' => 'photoFile']);
@@ -30,9 +27,6 @@ class VichSerializableFieldTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($annotation->isIncludeHost());
     }
 
-    /**
-     * Test annotation with `field` option
-     */
     public function testFieldOption()
     {
         $annotation = new VichSerializableField(['field' => 'photoFile']);
@@ -41,9 +35,6 @@ class VichSerializableFieldTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($annotation->isIncludeHost());
     }
 
-    /**
-     * Test annotation with `value` and `includeHost` options
-     */
     public function testValueAndIncludeHostOptions()
     {
         $annotation = new VichSerializableField(['value' => 'photoFile', 'includeHost' => false]);
@@ -52,19 +43,12 @@ class VichSerializableFieldTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($annotation->isIncludeHost());
     }
 
-    /**
-     * Test annotation without any option
-     *
-     * @expectedException \LogicException
-     */
     public function testAnnotationWithoutOptions()
     {
         new VichSerializableField([]);
     }
 
     /**
-     * Test annotation without `value` or `field` options
-     *
      * @expectedException \LogicException
      */
     public function testAnnotationWithoutIncludeHostOption()
@@ -73,8 +57,6 @@ class VichSerializableFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test annotation with wrong type for `value` option
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testWrongTypeForValueOption()
@@ -83,8 +65,6 @@ class VichSerializableFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test annotation with wrong type for `field` option
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testWrongTypeForFieldOption()
@@ -93,8 +73,6 @@ class VichSerializableFieldTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test annotation with wrong type for `includeHost` option
-     *
      * @expectedException \InvalidArgumentException
      */
     public function testWrongTypeForFieldIncludeHost()

@@ -13,7 +13,7 @@ namespace Fresh\VichUploaderSerializationBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * FreshVichUploaderSerializationBundle
+ * FreshVichUploaderSerializationBundle.
  *
  * @author Artem Genvald <genvaldartem@gmail.com>
  */
