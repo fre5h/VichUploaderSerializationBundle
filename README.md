@@ -196,4 +196,4 @@ class User
 
 ## Contributing
 
-See [CONTRIBUTING](https://github.com/fre5h/VichUploaderSerializationBundle/blob/master/CONTRIBUTING.md) file.
+See [CONTRIBUTING](https://github.com/fre5h/VichUploaderSerializationBundle/blob/master/.github/CONTRIBUTING.md) file.
