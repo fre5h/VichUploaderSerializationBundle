@@ -10,12 +10,12 @@
 
 namespace Fresh\VichUploaderSerializationBundle\Tests\Fixtures;
 
+use Doctrine\Common\Persistence\Proxy;
 use Doctrine\ORM\Mapping as ORM;
 use Fresh\VichUploaderSerializationBundle\Annotation as Fresh;
 use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Doctrine\Common\Persistence\Proxy;
 
 /**
  * UserPictures Entity.

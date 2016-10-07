@@ -17,13 +17,13 @@ use Doctrine\Common\Cache\ArrayCache;
 use Fresh\VichUploaderSerializationBundle\EventListener\JmsPreSerializeListener;
 use Fresh\VichUploaderSerializationBundle\Tests\Fixtures;
 use JMS\Serializer\DeserializationContext;
-use JMS\Serializer\EventDispatcher\ObjectEvent;
-use JMS\Serializer\EventDispatcher\Events as JmsEvents;
-use Monolog\Logger;
+use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\EventDispatcher\EventDispatcherInterface;
+use JMS\Serializer\EventDispatcher\Events as JmsEvents;
+use JMS\Serializer\EventDispatcher\ObjectEvent;
+use Monolog\Logger;
 use Symfony\Component\Routing\RequestContext;
 use Vich\UploaderBundle\Storage\StorageInterface;
-use JMS\Serializer\EventDispatcher\EventDispatcher;
 
 /**
  * JmsPreSerializeListenerTest.
