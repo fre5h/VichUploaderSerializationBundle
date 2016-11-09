@@ -43,10 +43,10 @@ class FreshVichUploaderSerializationExtensionTest extends \PHPUnit_Framework_Tes
     public function testLoadExtension()
     {
         // Add some dummy required services
-        $this->container->set('vich_uploader.storage', new \StdClass());
-        $this->container->set('router.request_context', new \StdClass());
-        $this->container->set('annotations.cached_reader', new \StdClass());
-        $this->container->set('logger', new \StdClass());
+        $this->container->set('vich_uploader.storage', new \stdClass());
+        $this->container->set('router.request_context', new \stdClass());
+        $this->container->set('annotations.cached_reader', new \stdClass());
+        $this->container->set('logger', new \stdClass());
 
         $this->container->loadFromExtension($this->extension->getAlias());
         $this->container->compile();
