@@ -23,6 +23,7 @@ use JMS\Serializer\EventDispatcher\Events as JmsEvents;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use Monolog\Logger;
 use Symfony\Component\Routing\RequestContext;
+use Vich\UploaderBundle\Storage\FileSystemStorage;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
 /**
@@ -38,7 +39,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
     private $dispatcher;
 
     /**
-     * @var StorageInterface $storage Vich storage
+     * @var StorageInterface|\PHPUnit_Framework_MockObject_MockObject $storage Vich storage
      */
     private $storage;
 
@@ -65,7 +66,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         AnnotationRegistry::registerLoader('class_exists');
 
         // Mock storage
-        $this->storage = $this->getMockBuilder('Vich\UploaderBundle\Storage\FileSystemStorage')
+        $this->storage = $this->getMockBuilder(FileSystemStorage::class)
                               ->disableOriginalConstructor()
                               ->getMock();
         $this->storage->expects($this->any())
@@ -86,11 +87,11 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->dispatcher       = null;
-        $this->storage          = null;
-        $this->requestContext   = null;
+        $this->dispatcher = null;
+        $this->storage = null;
+        $this->requestContext = null;
         $this->annotationReader = null;
-        $this->logger           = null;
+        $this->logger = null;
     }
 
     public function testSerializationWithIncludedHost()
@@ -102,7 +103,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event   = new ObjectEvent($context, $user, []);
+        $event = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
         $this->assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
@@ -118,7 +119,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event   = new ObjectEvent($context, $user, []);
+        $event = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
         $this->assertEquals('http://example.com:8000/uploads/photo.jpg', $user->getPhotoName());
@@ -134,7 +135,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event   = new ObjectEvent($context, $user, []);
+        $event = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
         $this->assertEquals('https://example.com:8800/uploads/photo.jpg', $user->getPhotoName());
@@ -150,7 +151,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event   = new ObjectEvent($context, $user, []);
+        $event = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserB::class, $context->getFormat(), $event);
 
         $this->assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
@@ -169,7 +170,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event   = new ObjectEvent($context, $user, []);
+        $event = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserC::class, $context->getFormat(), $event);
 
         $this->assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
@@ -185,7 +186,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
             ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event   = new ObjectEvent($context, $user, []);
+        $event = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, Fixtures\UserA::class, $context->getFormat(), $event);
 
         $this->assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
@@ -217,7 +218,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
     protected function generateRequestContext($https = false, $port = false)
     {
         // Mock Request contest
-        $this->requestContext = $this->getMockBuilder('Symfony\Component\Routing\RequestContext')
+        $this->requestContext = $this->getMockBuilder(RequestContext::class)
                                      ->disableOriginalConstructor()
                                      ->getMock();
 
@@ -249,7 +250,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
     protected function addEventListener()
     {
         $this->dispatcher = new EventDispatcher();
-        $listener         = new JmsPreSerializeListener($this->storage, $this->requestContext, $this->annotationReader, $this->logger);
+        $listener = new JmsPreSerializeListener($this->storage, $this->requestContext, $this->annotationReader, $this->logger);
 
         $this->dispatcher->addListener(JmsEvents::PRE_SERIALIZE, [$listener, 'onPreSerialize']);
     }

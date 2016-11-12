@@ -10,6 +10,7 @@
 
 namespace Fresh\VichUploaderSerializationBundle\Tests\Fixtures;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Fresh\VichUploaderSerializationBundle\Annotation as Fresh;
 use JMS\Serializer\Annotation as JMS;
@@ -30,7 +31,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class UserA
 {
     /**
-     * @var string $photoName Photo name
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
      *
@@ -42,7 +43,7 @@ class UserA
     private $photoName;
 
     /**
-     * @var File $photoFile Photo file
+     * @var File
      *
      * @JMS\Exclude
      *
@@ -51,7 +52,7 @@ class UserA
     private $photoFile;
 
     /**
-     * @var string $coverName Cover name
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
      *
@@ -63,7 +64,7 @@ class UserA
     private $coverName;
 
     /**
-     * @var File $coverFile Cover file
+     * @var File
      *
      * @JMS\Exclude
      *
@@ -72,15 +73,13 @@ class UserA
     private $coverFile;
 
     /**
-     * @var UserPicture[]|\Doctrine\Common\Collections\ArrayCollection $userPictures User pictures
+     * @var UserPicture[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Fresh\VichUploaderSerializationBundle\Tests\Fixtures\UserPictures", mappedBy="user")
      */
     protected $userPictures;
 
     /**
-     * To string.
-     *
      * @return string
      */
     public function __toString()
@@ -91,9 +90,7 @@ class UserA
     }
 
     /**
-     * Get photo name.
-     *
-     * @return string Photo name
+     * @return string
      */
     public function getPhotoName()
     {
@@ -101,9 +98,7 @@ class UserA
     }
 
     /**
-     * Set photo name.
-     *
-     * @param string $photoName Photo name
+     * @param string $photoName
      *
      * @return $this
      */
@@ -115,9 +110,7 @@ class UserA
     }
 
     /**
-     * Get photo file.
-     *
-     * @return File Photo file
+     * @return File
      */
     public function getPhotoFile()
     {
@@ -125,9 +118,7 @@ class UserA
     }
 
     /**
-     * Set photo file.
-     *
-     * @param File $photoFile Photo file
+     * @param File $photoFile
      *
      * @return $this
      */
@@ -139,9 +130,7 @@ class UserA
     }
 
     /**
-     * Get cover name.
-     *
-     * @return string Cover name
+     * @return string
      */
     public function getCoverName()
     {
@@ -149,9 +138,7 @@ class UserA
     }
 
     /**
-     * Set cover name.
-     *
-     * @param string $coverName Cover name
+     * @param string $coverName
      *
      * @return $this
      */
@@ -163,9 +150,7 @@ class UserA
     }
 
     /**
-     * Get cover file.
-     *
-     * @return File Cover file
+     * @return File
      */
     public function getCoverFile()
     {
@@ -173,9 +158,7 @@ class UserA
     }
 
     /**
-     * Set cover file.
-     *
-     * @param File $coverFile Cover file
+     * @param File $coverFile
      *
      * @return $this
      */
@@ -187,9 +170,7 @@ class UserA
     }
 
     /**
-     * Add user picture.
-     *
-     * @param UserPicture $userPicture User picture
+     * @param UserPicture $userPicture
      *
      * @return $this
      */
@@ -201,9 +182,7 @@ class UserA
     }
 
     /**
-     * Remove user picture.
-     *
-     * @param UserPicture $userPictures User picture
+     * @param UserPicture $userPictures
      */
     public function removeUserPictures(UserPicture $userPictures)
     {
@@ -211,9 +190,7 @@ class UserA
     }
 
     /**
-     * Get user picture.
-     *
-     * @return UserPicture[]|\Doctrine\Common\Collections\ArrayCollection
+     * @return UserPicture[]|ArrayCollection
      */
     public function getUserPictures()
     {

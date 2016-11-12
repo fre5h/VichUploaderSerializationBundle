@@ -30,7 +30,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class UserC
 {
     /**
-     * @var string $photoName Photo name
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
      *
@@ -39,7 +39,7 @@ class UserC
     private $photoName;
 
     /**
-     * @var File $photoFile Photo file
+     * @var File
      *
      * @JMS\Expose
      * @JMS\SerializedName("photo")
@@ -51,7 +51,7 @@ class UserC
     private $photoFile;
 
     /**
-     * @var string $coverName Cover name
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
      *
@@ -60,7 +60,7 @@ class UserC
     private $coverName;
 
     /**
-     * @var File $coverFile Cover file
+     * @var File
      *
      * @JMS\Expose
      * @JMS\SerializedName("cover")
@@ -72,8 +72,6 @@ class UserC
     private $coverFile;
 
     /**
-     * To string.
-     *
      * @return string
      */
     public function __toString()
@@ -84,9 +82,7 @@ class UserC
     }
 
     /**
-     * Get photo name.
-     *
-     * @return string Photo name
+     * @return string
      */
     public function getPhotoName()
     {
@@ -94,9 +90,7 @@ class UserC
     }
 
     /**
-     * Set photo name.
-     *
-     * @param string $photoName Photo name
+     * @param string $photoName
      *
      * @return $this
      */
@@ -108,9 +102,7 @@ class UserC
     }
 
     /**
-     * Get photo file.
-     *
-     * @return File Photo file
+     * @return File
      */
     public function getPhotoFile()
     {
@@ -118,9 +110,7 @@ class UserC
     }
 
     /**
-     * Set photo file.
-     *
-     * @param File $photoFile Photo file
+     * @param File $photoFile
      *
      * @return $this
      */
@@ -132,9 +122,7 @@ class UserC
     }
 
     /**
-     * Get cover name.
-     *
-     * @return string Cover name
+     * @return string
      */
     public function getCoverName()
     {
@@ -142,9 +130,7 @@ class UserC
     }
 
     /**
-     * Set cover name.
-     *
-     * @param string $coverName Cover name
+     * @param string $coverName
      *
      * @return $this
      */
@@ -156,9 +142,7 @@ class UserC
     }
 
     /**
-     * Get cover file.
-     *
-     * @return File Cover file
+     * @return File
      */
     public function getCoverFile()
     {
@@ -166,9 +150,7 @@ class UserC
     }
 
     /**
-     * Set cover file.
-     *
-     * @param File $coverFile Cover file
+     * @param File $coverFile
      *
      * @return $this
      */

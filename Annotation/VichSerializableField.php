@@ -23,17 +23,17 @@ use Doctrine\ORM\Mapping\Annotation;
 final class VichSerializableField implements Annotation
 {
     /**
-     * @var string $field Field
+     * @var string
      */
     private $field;
 
     /**
-     * @var bool $includeHost Include host
+     * @var bool
      */
     private $includeHost = true;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param array $options Options
      *
@@ -66,9 +66,7 @@ final class VichSerializableField implements Annotation
     }
 
     /**
-     * Get field
-     *
-     * @return string Field
+     * @return string
      */
     public function getField()
     {
@@ -76,9 +74,7 @@ final class VichSerializableField implements Annotation
     }
 
     /**
-     * Set field
-     *
-     * @param string $field Field
+     * @param string $field
      *
      * @return $this
      */
@@ -90,9 +86,7 @@ final class VichSerializableField implements Annotation
     }
 
     /**
-     * Get include host
-     *
-     * @return bool Include host
+     * @return bool
      */
     public function isIncludeHost()
     {
@@ -100,9 +94,7 @@ final class VichSerializableField implements Annotation
     }
 
     /**
-     * Set include host
-     *
-     * @param bool $includeHost Include host
+     * @param bool $includeHost
      *
      * @return $this
      */

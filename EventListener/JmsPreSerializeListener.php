@@ -30,27 +30,27 @@ use Vich\UploaderBundle\Storage\StorageInterface;
 class JmsPreSerializeListener
 {
     /**
-     * @var StorageInterface $storage Vich storage
+     * @var StorageInterface
      */
     private $storage;
 
     /**
-     * @var RequestContext $requestContext Request context
+     * @var RequestContext
      */
     private $requestContext;
 
     /**
-     * @var CachedReader $annotationReader Cached annotation reader
+     * @var CachedReader
      */
     private $annotationReader;
 
     /**
-     * @var Logger $logger Logger
+     * @var Logger
      */
     private $logger;
 
     /**
-     * @var array $serializedObjects Serialized objects
+     * @var array
      */
     private $serializedObjects = [];
 
@@ -68,15 +68,13 @@ class JmsPreSerializeListener
         CachedReader $annotationReader,
         Logger $logger
     ) {
-        $this->storage          = $storage;
-        $this->requestContext   = $requestContext;
+        $this->storage = $storage;
+        $this->requestContext = $requestContext;
         $this->annotationReader = $annotationReader;
-        $this->logger           = $logger;
+        $this->logger = $logger;
     }
 
     /**
-     * On pre serialize.
-     *
      * @param ObjectEvent $event Event
      */
     public function onPreSerialize(ObjectEvent $event)

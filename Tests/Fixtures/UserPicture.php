@@ -31,7 +31,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class UserPicture implements Proxy
 {
     /**
-     * @var UserA $user User
+     * @var UserA
      *
      * @ORM\ManyToOne(targetEntity="Fresh\VichUploaderSerializationBundle\Tests\Fixtures\UserA", inversedBy="pictures")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -39,7 +39,7 @@ class UserPicture implements Proxy
     private $user;
 
     /**
-     * @var string $photoName Photo name
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
      *
@@ -51,7 +51,7 @@ class UserPicture implements Proxy
     private $photoName;
 
     /**
-     * @var File $photoFile Photo file
+     * @var File
      *
      * @JMS\Exclude
      *
@@ -60,7 +60,7 @@ class UserPicture implements Proxy
     private $photoFile;
 
     /**
-     * @var string $coverName Cover name
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
      *
@@ -72,7 +72,7 @@ class UserPicture implements Proxy
     private $coverName;
 
     /**
-     * @var File $coverFile Cover file
+     * @var File
      *
      * @JMS\Exclude
      *
@@ -81,7 +81,7 @@ class UserPicture implements Proxy
     private $coverFile;
 
     /**
-     * @var bool $status Status
+     * @var bool
      */
     private $status = false;
 
@@ -104,8 +104,6 @@ class UserPicture implements Proxy
     }
 
     /**
-     * To string.
-     *
      * @return string
      */
     public function __toString()
@@ -116,9 +114,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Set user.
-     *
-     * @param UserA $user User
+     * @param UserA $user
      *
      * @return $this
      */
@@ -130,9 +126,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Get user.
-     *
-     * @return UserA User
+     * @return UserA
      */
     public function getUser()
     {
@@ -140,9 +134,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Get photo name.
-     *
-     * @return string Photo name
+     * @return string
      */
     public function getPhotoName()
     {
@@ -150,9 +142,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Set photo name.
-     *
-     * @param string $photoName Photo name
+     * @param string $photoName
      *
      * @return $this
      */
@@ -164,9 +154,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Get photo file.
-     *
-     * @return File Photo file
+     * @return File
      */
     public function getPhotoFile()
     {
@@ -174,9 +162,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Set photo file.
-     *
-     * @param File $photoFile Photo file
+     * @param File $photoFile
      *
      * @return $this
      */
@@ -188,9 +174,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Get cover name.
-     *
-     * @return string Cover name
+     * @return string
      */
     public function getCoverName()
     {
@@ -198,9 +182,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Set cover name.
-     *
-     * @param string $coverName Cover name
+     * @param string $coverName
      *
      * @return $this
      */
@@ -212,9 +194,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Get cover file.
-     *
-     * @return File Cover file
+     * @return File
      */
     public function getCoverFile()
     {
@@ -222,9 +202,7 @@ class UserPicture implements Proxy
     }
 
     /**
-     * Set cover file.
-     *
-     * @param File $coverFile Cover file
+     * @param File $coverFile
      *
      * @return $this
      */
