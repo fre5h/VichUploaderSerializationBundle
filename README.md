@@ -11,10 +11,10 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 [![Latest Stable Version](https://img.shields.io/packagist/v/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
 [![Total Downloads](https://img.shields.io/packagist/dt/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
 [![Dependency Status](https://www.versioneye.com/user/projects/565a0f4b036c32003d000008/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/565a0f4b036c32003d000008)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93.svg?style=flat-square)](https://insight.sensiolabs.com/projects/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93)
 [![StyleCI](https://styleci.io/repos/47037751/shield?style=flat-square)](https://styleci.io/repos/47037751)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat-square)](https://gitter.im/fre5h/VichUploaderSerializationBundle)
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93/small.png)](https://insight.sensiolabs.com/projects/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93)
 [![knpbundles.com](http://knpbundles.com/fre5h/VichUploaderSerializationBundle/badge-short)](http://knpbundles.com/fre5h/VichUploaderSerializationBundle)
 
 ## Installation
