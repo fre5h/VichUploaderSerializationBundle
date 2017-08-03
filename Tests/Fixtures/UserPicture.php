@@ -80,9 +80,7 @@ class UserPicture implements Proxy
      */
     private $coverFile;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $status = false;
 
     /**
