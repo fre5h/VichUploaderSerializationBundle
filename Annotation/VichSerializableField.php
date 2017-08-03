@@ -22,20 +22,14 @@ use Doctrine\ORM\Mapping\Annotation;
  */
 final class VichSerializableField implements Annotation
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $field;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $includeHost = true;
 
     /**
-     * Constructor.
-     *
-     * @param array $options Options
+     * @param array $options
      *
      * @throws \Exception
      */

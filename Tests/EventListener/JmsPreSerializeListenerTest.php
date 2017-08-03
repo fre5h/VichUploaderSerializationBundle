@@ -33,29 +33,19 @@ use Vich\UploaderBundle\Storage\StorageInterface;
  */
 class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var EventDispatcherInterface $dispatcher Dispatcher
-     */
+    /** @var EventDispatcherInterface */
     private $dispatcher;
 
-    /**
-     * @var StorageInterface|\PHPUnit_Framework_MockObject_MockObject $storage Vich storage
-     */
+    /** @var StorageInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $storage;
 
-    /**
-     * @var RequestContext $requestContext Request context
-     */
+    /** @var RequestContext */
     private $requestContext;
 
-    /**
-     * @var CachedReader $annotationReader Cached annotation reader
-     */
+    /** @var CachedReader */
     private $annotationReader;
 
-    /**
-     * @var Logger $logger Logger
-     */
+    /** @var Logger */
     private $logger;
 
     /**
@@ -76,7 +66,7 @@ class JmsPreSerializeListenerTest extends \PHPUnit_Framework_TestCase
         $this->annotationReader = new CachedReader(new AnnotationReader(), new ArrayCache());
 
         // Mock logger
-        $this->logger = $this->getMockBuilder('Monolog\Logger')
+        $this->logger = $this->getMockBuilder(Logger::class)
                              ->disableOriginalConstructor()
                              ->setMethods(['debug'])
                              ->getMock();

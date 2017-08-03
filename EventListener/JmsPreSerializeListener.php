@@ -29,38 +29,26 @@ use Vich\UploaderBundle\Storage\StorageInterface;
  */
 class JmsPreSerializeListener
 {
-    /**
-     * @var StorageInterface
-     */
+    /** @var StorageInterface */
     private $storage;
 
-    /**
-     * @var RequestContext
-     */
+    /** @var RequestContext */
     private $requestContext;
 
-    /**
-     * @var CachedReader
-     */
+    /** @var CachedReader */
     private $annotationReader;
 
-    /**
-     * @var Logger
-     */
+    /** @var Logger */
     private $logger;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $serializedObjects = [];
 
     /**
-     * Constructor.
-     *
-     * @param StorageInterface $storage          Vich storage
-     * @param RequestContext   $requestContext   Request context
-     * @param CachedReader     $annotationReader Cached annotation reader
-     * @param Logger           $logger           Logger
+     * @param StorageInterface $storage
+     * @param RequestContext   $requestContext
+     * @param CachedReader     $annotationReader
+     * @param Logger           $logger
      */
     public function __construct(
         StorageInterface $storage,
@@ -75,7 +63,7 @@ class JmsPreSerializeListener
     }
 
     /**
-     * @param ObjectEvent $event Event
+     * @param ObjectEvent $event
      */
     public function onPreSerialize(ObjectEvent $event)
     {
@@ -138,7 +126,7 @@ class JmsPreSerializeListener
     /**
      * Get host url (scheme, host, port).
      *
-     * @return string Host url
+     * @return string
      */
     private function getHostUrl()
     {
