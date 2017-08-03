@@ -26,7 +26,7 @@
         "symfony/symfony": "^2.7.13 || ^3.0.6",
         "doctrine/orm": "~2.5",
         "vich/uploader-bundle": "~1.1",
-        "jms/serializer-bundle": "~1.1"
+        "jms/serializer-bundle": "~1.1 || ~2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "5.6.*",
