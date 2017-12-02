@@ -2,7 +2,7 @@
 /*
  * This file is part of the FreshVichUploaderSerializationBundle
  *
- * (c) Artem Genvald <genvaldartem@gmail.com>
+ * (c) Artem Henvald <genvaldartem@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,18 +17,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * FreshVichUploaderSerializationExtensionTest.
  *
- * @author Artem Genvald <genvaldartem@gmail.com>
+ * @author Artem Henvald <genvaldartem@gmail.com>
  */
 class FreshVichUploaderSerializationExtensionTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var FreshVichUploaderSerializationExtension $extension FreshVichUploaderSerializationExtension
-     */
+    /** @var FreshVichUploaderSerializationExtension */
     private $extension;
 
-    /**
-     * @var ContainerBuilder $container Container builder
-     */
+    /** @var ContainerBuilder */
     private $container;
 
     /**
@@ -48,6 +44,7 @@ class FreshVichUploaderSerializationExtensionTest extends \PHPUnit_Framework_Tes
         $this->container->set('router.request_context', new \stdClass());
         $this->container->set('annotations.cached_reader', new \stdClass());
         $this->container->set('logger', new \stdClass());
+        $this->container->set('property_accessor', new \stdClass());
 
         $this->container->loadFromExtension($this->extension->getAlias());
         $this->container->compile();
@@ -57,12 +54,12 @@ class FreshVichUploaderSerializationExtensionTest extends \PHPUnit_Framework_Tes
         foreach ($resources as $resource) {
             if ($resource instanceof FileResource) {
                 $path = $resource->getResource();
-                $resourceList[] = substr($path, strrpos($path, '/') + 1);
+                $resourceList[] = \substr($path, \strrpos($path, '/') + 1);
             }
         }
         $this->assertContains('services.yml', $resourceList);
 
         // Check that services have been loaded
-        $this->assertTrue($this->container->has('vich_uploader.jms_serializer.listener'));
+        $this->assertTrue($this->container->has('vich_uploader.jms_serializer.pre_serialize_subscriber'));
     }
 }

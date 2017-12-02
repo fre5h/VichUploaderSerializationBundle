@@ -2,7 +2,7 @@
 /*
  * This file is part of the FreshVichUploaderSerializationBundle
  *
- * (c) Artem Genvald <genvaldartem@gmail.com>
+ * (c) Artem Henvald <genvaldartem@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -26,6 +26,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @JMS\ExclusionPolicy("all")
  *
  * @Vich\Uploadable
+ *
  * @Fresh\VichSerializableClass
  */
 class UserA
@@ -84,9 +85,7 @@ class UserA
      */
     public function __toString()
     {
-        $result = 'New User';
-
-        return $result;
+        return 'New User';
     }
 
     /**
