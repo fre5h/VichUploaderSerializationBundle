@@ -21,7 +21,6 @@ use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\EventDispatcher\EventDispatcherInterface;
 use JMS\Serializer\EventDispatcher\Events as JmsEvents;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
-use JMS\Serializer\EventDispatcher\ObjectEvent;
 use Monolog\Logger;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Routing\RequestContext;
