@@ -1,14 +1,15 @@
 parameters:
-    vich_uploader.jms_serializer.listener.class: Fresh\VichUploaderSerializationBundle\EventListener\JmsPreSerializeListener
+    vich_uploader.jms_serializer_subscriber.class: Fresh\VichUploaderSerializationBundle\EventListener\JmsSerializerSubscriber
 
 services:
-    vich_uploader.jms_serializer.listener:
-        class: "%vich_uploader.jms_serializer.listener.class%"
+    vich_uploader.jms_serializer.pre_serialize_subscriber:
+        class: "%vich_uploader.jms_serializer_subscriber.class%"
         arguments:
             - "@vich_uploader.storage"
             - "@router.request_context"
             - "@annotations.cached_reader"
+            - "@property_accessor"
             - "@logger"
         tags:
-            - { name: jms_serializer.event_listener, event: serializer.pre_serialize, method: onPreSerialize }
+            - { name: jms_serializer.event_subscriber }
             - { name: monolog.logger, channel: vich_uploader_serialization }
