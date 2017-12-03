@@ -6,7 +6,7 @@
          bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="DoctrineEnumBundle Test Suite">
+        <testsuite name="VichUploaderSerializationBundle Test Suite">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>
