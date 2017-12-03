@@ -10,7 +10,6 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 [![License](https://img.shields.io/packagist/l/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
 [![Latest Stable Version](https://img.shields.io/packagist/v/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
 [![Total Downloads](https://img.shields.io/packagist/dt/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
-[![Dependency Status](https://www.versioneye.com/user/projects/565a0f4b036c32003d000008/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/565a0f4b036c32003d000008)
 [![StyleCI](https://styleci.io/repos/47037751/shield?style=flat-square)](https://styleci.io/repos/47037751)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat-square)](https://gitter.im/fre5h/VichUploaderSerializationBundle)
 
@@ -19,7 +18,7 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 
 ## Installation
 
-```php composer.phar require fresh/vich-uploader-serialization-bundle='~1.0'```
+```composer req fresh/vich-uploader-serialization-bundle='~1.1'```
 
 ### Register the bundle
 
@@ -35,7 +34,7 @@ public function registerBundles()
 }
 ```
 
-## Using
+## Usage
 
 Add the next class to the `use` section of your entity class.
 
@@ -86,18 +85,17 @@ use JMS\Serializer\Annotation as JMS;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * User Entity
- *
  * @ORM\Table(name="users")
  * @ORM\Entity()
  *
  * @Vich\Uploadable
+ * 
  * @Fresh\VichSerializableClass
  */
 class User
 {
     /**
-     * @var string $photoName Photo name
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
      *
@@ -109,7 +107,7 @@ class User
     private $photoName;
 
     /**
-     * @var File $photoFile Photo file
+     * @var File
      *
      * @JMS\Exclude
      *
@@ -118,7 +116,7 @@ class User
     private $photoFile;
     
     /**
-     * @var string $coverName Cover name
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
      *
@@ -130,7 +128,7 @@ class User
     private $coverName;
 
     /**
-     * @var File $coverFile Cover file
+     * @var File
      *
      * @JMS\Exclude
      *
@@ -142,13 +140,13 @@ class User
 
 ### Don't make a mistake!
 
-Additional example of a **wrong use** of provided annotations to attract your attention.
+Additional example of a **wrong usage** of provided annotations to attract your attention.
 Use `@Fresh\VichSerializableField` **only with** the field which is mapped with `@ORM\Column`,
-because this field is mapped to a database and keeps the name of stored file.
+because this field is mapped to a database and keeps the name of the stored file.
 Don't use the `@Fresh\VichSerializableField` with a field which also mapped with `@Vich\UploadableField`,
 this is a wrong use case and will throw an exception!
 
-So the next example is the **incorrect** use of provided annotations! Don't do so!
+So the next example is the **incorrect** usage of provided annotations! Don't do so!
 
 ```php
 <?php
@@ -161,25 +159,24 @@ use JMS\Serializer\Annotation as JMS;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * User Entity
- *
  * @ORM\Table(name="users")
  * @ORM\Entity()
  *
  * @Vich\Uploadable
+ * 
  * @Fresh\VichSerializableClass
  */
 class User
 {
     /**
-     * @var string $photoName Photo name
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
     private $photoName;
 
     /**
-     * @var File $photoFile Photo file
+     * @var File
      *
      * !!! Next three annotations should be moved to the `photoName` property
      * @JMS\Expose
