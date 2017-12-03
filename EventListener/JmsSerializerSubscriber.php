@@ -176,9 +176,9 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
 
         $url = $scheme.'://'.$this->requestContext->getHost();
 
-        if ('http' === $scheme && 80 !== $hostPort) {
+        if ('http' === $scheme && $hostPort && 80 !== $hostPort) {
             $url .= ':'.$hostPort;
-        } elseif ('https' === $scheme && 443 !== $hostPort) {
+        } elseif ('https' === $scheme && $hostPort && 443 !== $hostPort) {
             $url .= ':'.$hostPort;
         }
 
