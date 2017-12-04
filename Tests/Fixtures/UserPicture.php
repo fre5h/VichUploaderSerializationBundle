@@ -8,10 +8,11 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Fresh\VichUploaderSerializationBundle\Tests\Fixtures;
 
 use Doctrine\Common\Persistence\Proxy;
-use Doctrine\ORM\Mapping as ORM;
 use Fresh\VichUploaderSerializationBundle\Annotation as Fresh;
 use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\HttpFoundation\File\File;
@@ -19,9 +20,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * UserPictures Entity.
- *
- * @ORM\Table(name="userPictures")
- * @ORM\Entity()
  *
  * @JMS\ExclusionPolicy("all")
  *
@@ -32,17 +30,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class UserPicture implements Proxy
 {
     /**
-     * @var UserA
-     *
-     * @ORM\ManyToOne(targetEntity="Fresh\VichUploaderSerializationBundle\Tests\Fixtures\UserA", inversedBy="pictures")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
-
-    /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255)
      *
      * @JMS\Expose
      * @JMS\SerializedName("photo")
@@ -62,8 +50,6 @@ class UserPicture implements Proxy
 
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255)
      *
      * @JMS\Expose
      * @JMS\SerializedName("cover")
@@ -105,35 +91,7 @@ class UserPicture implements Proxy
     /**
      * @return string
      */
-    public function __toString()
-    {
-        return 'New User Picture';
-    }
-
-    /**
-     * @param UserA $user
-     *
-     * @return $this
-     */
-    public function setUser(UserA $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @return UserA
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhotoName()
+    public function getPhotoName(): ?string
     {
         return $this->photoName;
     }
@@ -143,7 +101,7 @@ class UserPicture implements Proxy
      *
      * @return $this
      */
-    public function setPhotoName($photoName)
+    public function setPhotoName(?string $photoName): self
     {
         $this->photoName = $photoName;
 
@@ -153,7 +111,7 @@ class UserPicture implements Proxy
     /**
      * @return File
      */
-    public function getPhotoFile()
+    public function getPhotoFile(): ?File
     {
         return $this->photoFile;
     }
@@ -163,7 +121,7 @@ class UserPicture implements Proxy
      *
      * @return $this
      */
-    public function setPhotoFile(File $photoFile)
+    public function setPhotoFile(File $photoFile): self
     {
         $this->photoFile = $photoFile;
 
@@ -173,7 +131,7 @@ class UserPicture implements Proxy
     /**
      * @return string
      */
-    public function getCoverName()
+    public function getCoverName(): ?string
     {
         return $this->coverName;
     }
@@ -183,7 +141,7 @@ class UserPicture implements Proxy
      *
      * @return $this
      */
-    public function setCoverName($coverName)
+    public function setCoverName(?string $coverName): self
     {
         $this->coverName = $coverName;
 
@@ -193,7 +151,7 @@ class UserPicture implements Proxy
     /**
      * @return File
      */
-    public function getCoverFile()
+    public function getCoverFile(): ?File
     {
         return $this->coverFile;
     }
@@ -203,7 +161,7 @@ class UserPicture implements Proxy
      *
      * @return $this
      */
-    public function setCoverFile(File $coverFile)
+    public function setCoverFile(File $coverFile): self
     {
         $this->coverFile = $coverFile;
 
@@ -212,9 +170,13 @@ class UserPicture implements Proxy
 
     /**
      * @param bool $status
+     *
+     * @return $this
      */
-    public function setStatus($status)
+    public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
     }
 }

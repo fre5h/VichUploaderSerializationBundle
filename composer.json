@@ -28,7 +28,7 @@
         "symfony/dependency-injection": "^3.4 || ^4.0",
         "symfony/property-access": "^3.4 || ^4.0",
         "symfony/routing": "^3.4 || ^4.0",
-        "doctrine/orm": "^2.6",
+        "doctrine/common": "^2.8",
         "vich/uploader-bundle": "^1.6",
         "jms/serializer-bundle": "^2.3"
     },

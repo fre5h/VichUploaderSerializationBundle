@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Fresh\VichUploaderSerializationBundle\Tests\Fixtures;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Fresh\VichUploaderSerializationBundle\Annotation as Fresh;
 use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\HttpFoundation\File\File;
@@ -19,9 +19,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * UserA Entity.
- *
- * @ORM\Table(name="users")
- * @ORM\Entity()
  *
  * @JMS\ExclusionPolicy("all")
  *
@@ -33,8 +30,6 @@ class UserA
 {
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255)
      *
      * @JMS\Expose
      * @JMS\SerializedName("photo")
@@ -55,8 +50,6 @@ class UserA
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
-     *
      * @JMS\Expose
      * @JMS\SerializedName("cover")
      *
@@ -74,24 +67,9 @@ class UserA
     private $coverFile;
 
     /**
-     * @var UserPicture[]|ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Fresh\VichUploaderSerializationBundle\Tests\Fixtures\UserPictures", mappedBy="user")
-     */
-    protected $userPictures;
-
-    /**
      * @return string
      */
-    public function __toString()
-    {
-        return 'New User';
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhotoName()
+    public function getPhotoName(): ?string
     {
         return $this->photoName;
     }
@@ -101,7 +79,7 @@ class UserA
      *
      * @return $this
      */
-    public function setPhotoName($photoName)
+    public function setPhotoName(?string $photoName): self
     {
         $this->photoName = $photoName;
 
@@ -111,7 +89,7 @@ class UserA
     /**
      * @return File
      */
-    public function getPhotoFile()
+    public function getPhotoFile(): ?File
     {
         return $this->photoFile;
     }
@@ -121,7 +99,7 @@ class UserA
      *
      * @return $this
      */
-    public function setPhotoFile(File $photoFile)
+    public function setPhotoFile(File $photoFile): self
     {
         $this->photoFile = $photoFile;
 
@@ -131,7 +109,7 @@ class UserA
     /**
      * @return string
      */
-    public function getCoverName()
+    public function getCoverName(): ?string
     {
         return $this->coverName;
     }
@@ -141,7 +119,7 @@ class UserA
      *
      * @return $this
      */
-    public function setCoverName($coverName)
+    public function setCoverName(?string $coverName): self
     {
         $this->coverName = $coverName;
 
@@ -151,7 +129,7 @@ class UserA
     /**
      * @return File
      */
-    public function getCoverFile()
+    public function getCoverFile(): ?File
     {
         return $this->coverFile;
     }
@@ -161,38 +139,10 @@ class UserA
      *
      * @return $this
      */
-    public function setCoverFile(File $coverFile)
+    public function setCoverFile(File $coverFile): self
     {
         $this->coverFile = $coverFile;
 
         return $this;
-    }
-
-    /**
-     * @param UserPicture $userPicture
-     *
-     * @return $this
-     */
-    public function addUserPictures(UserPicture $userPicture)
-    {
-        $this->userPictures[] = $userPicture;
-
-        return $this;
-    }
-
-    /**
-     * @param UserPicture $userPictures
-     */
-    public function removeUserPictures(UserPicture $userPictures)
-    {
-        $this->userPictures->removeElement($userPictures);
-    }
-
-    /**
-     * @return UserPicture[]|ArrayCollection
-     */
-    public function getUserPictures()
-    {
-        return $this->userPictures;
     }
 }

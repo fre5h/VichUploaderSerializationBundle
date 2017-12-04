@@ -8,9 +8,11 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Fresh\VichUploaderSerializationBundle\Annotation;
 
-use Doctrine\ORM\Mapping\Annotation;
+use Doctrine\Common\Annotations\Annotation;
 
 /**
  * VichSerializableField Annotation Class.
@@ -21,7 +23,7 @@ use Doctrine\ORM\Mapping\Annotation;
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
  */
-final class VichSerializableField implements Annotation
+final class VichSerializableField
 {
     /** @var string */
     private $field;
@@ -63,7 +65,7 @@ final class VichSerializableField implements Annotation
     /**
      * @return string
      */
-    public function getField()
+    public function getField(): string
     {
         return $this->field;
     }
@@ -73,7 +75,7 @@ final class VichSerializableField implements Annotation
      *
      * @return $this
      */
-    public function setField($field)
+    public function setField(string $field): self
     {
         $this->field = $field;
 
@@ -83,7 +85,7 @@ final class VichSerializableField implements Annotation
     /**
      * @return bool
      */
-    public function isIncludeHost()
+    public function isIncludeHost(): bool
     {
         return $this->includeHost;
     }
@@ -93,7 +95,7 @@ final class VichSerializableField implements Annotation
      *
      * @return $this
      */
-    public function setIncludeHost($includeHost)
+    public function setIncludeHost(bool $includeHost): self
     {
         $this->includeHost = $includeHost;
 

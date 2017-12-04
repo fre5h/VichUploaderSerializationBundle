@@ -8,9 +8,10 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Fresh\VichUploaderSerializationBundle\Tests\Fixtures;
 
-use Doctrine\ORM\Mapping as ORM;
 use Fresh\VichUploaderSerializationBundle\Annotation as Fresh;
 use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\HttpFoundation\File\File;
@@ -18,9 +19,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * UserB Entity.
- *
- * @ORM\Table(name="users")
- * @ORM\Entity()
  *
  * @JMS\ExclusionPolicy("all")
  *
@@ -32,8 +30,6 @@ class UserB
 {
     /**
      * @var string
-     *
-     * @ORM\Column(type="string", length=255)
      *
      * @JMS\Expose
      * @JMS\SerializedName("photo")
@@ -54,8 +50,6 @@ class UserB
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
-     *
      * @JMS\Expose
      * @JMS\SerializedName("cover")
      *
@@ -75,15 +69,7 @@ class UserB
     /**
      * @return string
      */
-    public function __toString()
-    {
-        return 'New User';
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhotoName()
+    public function getPhotoName(): ?string
     {
         return $this->photoName;
     }
@@ -93,7 +79,7 @@ class UserB
      *
      * @return $this
      */
-    public function setPhotoName($photoName)
+    public function setPhotoName(?string $photoName): self
     {
         $this->photoName = $photoName;
 
@@ -103,7 +89,7 @@ class UserB
     /**
      * @return File
      */
-    public function getPhotoFile()
+    public function getPhotoFile(): ?File
     {
         return $this->photoFile;
     }
@@ -113,7 +99,7 @@ class UserB
      *
      * @return $this
      */
-    public function setPhotoFile(File $photoFile)
+    public function setPhotoFile(File $photoFile): self
     {
         $this->photoFile = $photoFile;
 
@@ -123,7 +109,7 @@ class UserB
     /**
      * @return string
      */
-    public function getCoverName()
+    public function getCoverName(): ?string
     {
         return $this->coverName;
     }
@@ -133,7 +119,7 @@ class UserB
      *
      * @return $this
      */
-    public function setCoverName($coverName)
+    public function setCoverName(?string $coverName): self
     {
         $this->coverName = $coverName;
 
@@ -143,7 +129,7 @@ class UserB
     /**
      * @return File
      */
-    public function getCoverFile()
+    public function getCoverFile(): ?File
     {
         return $this->coverFile;
     }
@@ -153,7 +139,7 @@ class UserB
      *
      * @return $this
      */
-    public function setCoverFile(File $coverFile)
+    public function setCoverFile(File $coverFile): self
     {
         $this->coverFile = $coverFile;
 

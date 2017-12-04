@@ -11,13 +11,14 @@
 namespace Fresh\VichUploaderSerializationBundle\Tests\Annotation;
 
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableField;
+use PHPUnit\Framework\TestCase;
 
 /**
  * VichSerializableFieldTest.
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
  */
-class VichSerializableFieldTest extends \PHPUnit_Framework_TestCase
+class VichSerializableFieldTest extends TestCase
 {
     public function testValueOption()
     {
