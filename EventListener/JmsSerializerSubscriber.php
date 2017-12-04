@@ -136,8 +136,8 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
                             $uri = $this->getHostUrl().$uri;
                         }
                     }
-                    $property->setValue($object, $uri);
                     $this->serializedObjects[$objectUid][$property->getName()] = $property->getValue($event->getObject());
+                    $property->setValue($object, $uri);
                 }
             }
         }
@@ -162,6 +162,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
         foreach ($this->serializedObjects[$objectUid] as $propertyName => $propertyValue) {
             $this->propertyAccessor->setValue($object, $propertyName, $propertyValue);
         }
+        unset($this->serializedObjects[$objectUid]);
     }
 
     /**
@@ -172,14 +173,16 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     private function getHostUrl()
     {
         $scheme = $this->requestContext->getScheme();
-        $hostPort = $this->requestContext->getHttpPort();
-
         $url = $scheme.'://'.$this->requestContext->getHost();
 
-        if ('http' === $scheme && $hostPort && 80 !== $hostPort) {
-            $url .= ':'.$hostPort;
-        } elseif ('https' === $scheme && $hostPort && 443 !== $hostPort) {
-            $url .= ':'.$hostPort;
+        $httpPort = $this->requestContext->getHttpPort();
+        if ('http' === $scheme && $httpPort && 80 !== $httpPort) {
+            return $url.':'.$httpPort;
+        }
+
+        $httpsPort = $this->requestContext->getHttpsPort();
+        if ('https' === $scheme && $httpsPort && 443 !== $httpsPort) {
+            return $url.':'.$httpsPort;
         }
 
         return $url;

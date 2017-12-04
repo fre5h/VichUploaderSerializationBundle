@@ -1,9 +1,7 @@
-parameters:
-    vich_uploader.jms_serializer_subscriber.class: Fresh\VichUploaderSerializationBundle\EventListener\JmsSerializerSubscriber
-
 services:
-    vich_uploader.jms_serializer.pre_serialize_subscriber:
-        class: "%vich_uploader.jms_serializer_subscriber.class%"
+    vich_uploader_serialization.jms_serializer.subscriber:
+        class: Fresh\VichUploaderSerializationBundle\EventListener\JmsSerializerSubscriber
+        public: false
         arguments:
             - "@vich_uploader.storage"
             - "@router.request_context"
