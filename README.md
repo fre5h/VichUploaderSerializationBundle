@@ -18,21 +18,9 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 
 ## Installation
 
-```composer req fresh/vich-uploader-serialization-bundle='~1.1'```
+```composer req fresh/vich-uploader-serialization-bundle='~2.0'```
 
-### Register the bundle
-
-To start using the bundle, register it in `app/AppKernel.php`:
-
-```php
-public function registerBundles()
-{
-    $bundles = [
-        // Other bundles...
-        new Fresh\VichUploaderSerializationBundle\FreshVichUploaderSerializationBundle(),
-    ];
-}
-```
+Registration in Kernel for Symfony 4.0 is done automatically.
 
 ## Usage
 
