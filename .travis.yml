@@ -3,19 +3,12 @@ language: php
 sudo: false
 
 php:
-  - 5.6
-  - 7.0
   - 7.1
   - 7.2
 
 env:
-  - SYMFONY_VERSION=2.7.*
-  - SYMFONY_VERSION=2.8.*
-  - SYMFONY_VERSION=3.0.*
-  - SYMFONY_VERSION=3.1.*
-  - SYMFONY_VERSION=3.2.*
-  - SYMFONY_VERSION=3.3.*
   - SYMFONY_VERSION=3.4.*
+  - SYMFONY_VERSION=4.0.*
 
 before_install:
   - composer self-update
