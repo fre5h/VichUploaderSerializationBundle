@@ -2,7 +2,7 @@
 /*
  * This file is part of the FreshVichUploaderSerializationBundle
  *
- * (c) Artem Genvald <genvaldartem@gmail.com>
+ * (c) Artem Henvald <genvaldartem@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,8 +16,12 @@ use Doctrine\Common\Util\ClassUtils;
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableClass;
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableField;
 use Fresh\VichUploaderSerializationBundle\Exception\IncompatibleUploadableAndSerializableFieldAnnotationException;
+use JMS\Serializer\EventDispatcher\Events;
+use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
+use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use Monolog\Logger;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Routing\RequestContext;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 use Vich\UploaderBundle\Storage\StorageInterface;
@@ -25,9 +29,9 @@ use Vich\UploaderBundle\Storage\StorageInterface;
 /**
  * JmsPreSerializeListener Class.
  *
- * @author Artem Genvald <genvaldartem@gmail.com>
+ * @author Artem Henvald <genvaldartem@gmail.com>
  */
-class JmsPreSerializeListener
+class JmsSerializerSubscriber implements EventSubscriberInterface
 {
     /** @var StorageInterface */
     private $storage;
@@ -37,6 +41,9 @@ class JmsPreSerializeListener
 
     /** @var CachedReader */
     private $annotationReader;
+
+    /** @var PropertyAccessor */
+    private $propertyAccessor;
 
     /** @var Logger */
     private $logger;
@@ -48,33 +55,46 @@ class JmsPreSerializeListener
      * @param StorageInterface $storage
      * @param RequestContext   $requestContext
      * @param CachedReader     $annotationReader
+     * @param PropertyAccessor $propertyAccessor
      * @param Logger           $logger
      */
-    public function __construct(
-        StorageInterface $storage,
-        RequestContext $requestContext,
-        CachedReader $annotationReader,
-        Logger $logger
-    ) {
+    public function __construct(StorageInterface $storage, RequestContext $requestContext, CachedReader $annotationReader, PropertyAccessor $propertyAccessor, Logger $logger)
+    {
         $this->storage = $storage;
         $this->requestContext = $requestContext;
         $this->annotationReader = $annotationReader;
+        $this->propertyAccessor = $propertyAccessor;
         $this->logger = $logger;
     }
 
     /**
-     * @param ObjectEvent $event
+     * @return array
      */
-    public function onPreSerialize(ObjectEvent $event)
+    public static function getSubscribedEvents()
+    {
+        return [
+            ['event' => Events::PRE_SERIALIZE, 'method' => 'onPreSerialize'],
+            ['event' => Events::POST_SERIALIZE, 'method' => 'onPostSerialize'],
+        ];
+    }
+
+    /**
+     * @param PreSerializeEvent $event
+     *
+     * @throws IncompatibleUploadableAndSerializableFieldAnnotationException
+     */
+    public function onPreSerialize(PreSerializeEvent $event)
     {
         $object = $event->getObject();
 
-        if ($object instanceof Proxy && !$object->__isInitialized()) {
-            $object->__load();
+        if ($object instanceof Proxy) {
+            if (!$object->__isInitialized()) {
+                $object->__load();
+            }
         }
 
-        $objectUid = spl_object_hash($object);
-        if (in_array($objectUid, $this->serializedObjects)) {
+        $objectUid = \spl_object_hash($object);
+        if (\array_key_exists($objectUid, $this->serializedObjects)) {
             return;
         }
 
@@ -84,8 +104,11 @@ class JmsPreSerializeListener
         );
 
         if ($classAnnotation instanceof VichSerializableClass) {
-            $reflectionClass = ClassUtils::newReflectionClass(get_class($object));
-            $this->logger->debug(sprintf('Found @VichSerializableClass annotation for the class "%s"', $reflectionClass->getName()));
+            $reflectionClass = ClassUtils::newReflectionClass(\get_class($object));
+            $this->logger->debug(\sprintf(
+                'Found @VichSerializableClass annotation for the class "%s"',
+                $reflectionClass->getName()
+            ));
 
             foreach ($reflectionClass->getProperties() as $property) {
                 $vichSerializableAnnotation = $this->annotationReader->getPropertyAnnotation($property, VichSerializableField::class);
@@ -94,13 +117,13 @@ class JmsPreSerializeListener
                     $vichUploadableFileAnnotation = $this->annotationReader->getPropertyAnnotation($property, UploadableField::class);
 
                     if ($vichUploadableFileAnnotation instanceof UploadableField) {
-                        throw new IncompatibleUploadableAndSerializableFieldAnnotationException(sprintf(
+                        throw new IncompatibleUploadableAndSerializableFieldAnnotationException(\sprintf(
                             'The field "%s" in the class "%s" cannot have @UploadableField and @VichSerializableField annotations at the same moment.',
                             $property->getName(),
                             $reflectionClass->getName()
                         ));
                     }
-                    $this->logger->debug(sprintf(
+                    $this->logger->debug(\sprintf(
                         'Found @VichSerializableField annotation for the field "%s" in the class "%s"',
                         $property->getName(),
                         $reflectionClass->getName()
@@ -115,27 +138,55 @@ class JmsPreSerializeListener
                             $uri = $this->getHostUrl().$uri;
                         }
                     }
+                    $this->serializedObjects[$objectUid][$property->getName()] = $property->getValue($event->getObject());
                     $property->setValue($object, $uri);
                 }
             }
-
-            $this->serializedObjects[$objectUid] = $objectUid;
         }
     }
 
     /**
-     * Get host url (scheme, host, port).
+     * @param ObjectEvent $event
+     */
+    public function onPostSerialize(ObjectEvent $event)
+    {
+        $object = $event->getObject();
+
+        if ($object instanceof Proxy) {
+            if (!$object->__isInitialized()) {
+                $object->__load();
+            }
+        }
+
+        $objectUid = \spl_object_hash($object);
+        if (!\array_key_exists($objectUid, $this->serializedObjects)) {
+            return;
+        }
+
+        foreach ($this->serializedObjects[$objectUid] as $propertyName => $propertyValue) {
+            $this->propertyAccessor->setValue($object, $propertyName, $propertyValue);
+        }
+        unset($this->serializedObjects[$objectUid]);
+    }
+
+    /**
+     * Get host url (scheme://host:port).
      *
      * @return string
      */
     private function getHostUrl()
     {
-        $url = $this->requestContext->getScheme().'://'.$this->requestContext->getHost();
+        $scheme = $this->requestContext->getScheme();
+        $url = $scheme.'://'.$this->requestContext->getHost();
 
-        if ($this->requestContext->getScheme() == 'http' && $this->requestContext->getHttpPort() && $this->requestContext->getHttpPort() != 80) {
-            $url .= ':'.$this->requestContext->getHttpPort();
-        } elseif ($this->requestContext->getScheme() == 'https' && $this->requestContext->getHttpsPort() && $this->requestContext->getHttpsPort() != 443) {
-            $url .= ':'.$this->requestContext->getHttpsPort();
+        $httpPort = $this->requestContext->getHttpPort();
+        if ('http' === $scheme && $httpPort && 80 !== $httpPort) {
+            return $url.':'.$httpPort;
+        }
+
+        $httpsPort = $this->requestContext->getHttpsPort();
+        if ('https' === $scheme && $httpsPort && 443 !== $httpsPort) {
+            return $url.':'.$httpsPort;
         }
 
         return $url;
