@@ -16,7 +16,7 @@ use Doctrine\Common\Annotations\Annotation;
  * VichSerializableClass Annotation Class.
  *
  * @Annotation
-*
+ *
  * @Target({"CLASS", "ANNOTATION"})
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
