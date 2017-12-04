@@ -87,6 +87,7 @@ class JmsSerializerSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->storage = null;
         $this->requestContext = null;
         $this->annotationReader = null;
+        $this->propertyAccessor = null;
         $this->logger = null;
     }
 
@@ -121,6 +122,24 @@ class JmsSerializerSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
         $this->assertEquals('http://example.com/uploads/cover.jpg', $user->getCoverName());
 
+        $event = new ObjectEvent($context, $user, []);
+        $this->dispatcher->dispatch(JmsEvents::POST_SERIALIZE, UserA::class, $context->getFormat(), $event);
+
+        $this->assertNotEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
+        $this->assertNotEquals('http://example.com/uploads/cover.jpg', $user->getCoverName());
+        $this->assertEquals('photo.jpg', $user->getPhotoName());
+        $this->assertEquals('cover.jpg', $user->getCoverName());
+    }
+
+    public function testPostSerializationEventWithoutPreviousSerialization()
+    {
+        $this->generateRequestContext();
+
+        $user = (new UserA())
+            ->setPhotoName('photo.jpg')
+            ->setCoverName('cover.jpg');
+
+        $context = DeserializationContext::create();
         $event = new ObjectEvent($context, $user, []);
         $this->dispatcher->dispatch(JmsEvents::POST_SERIALIZE, UserA::class, $context->getFormat(), $event);
 
@@ -266,11 +285,20 @@ class JmsSerializerSubscriberTest extends \PHPUnit_Framework_TestCase
                 ->setCoverName('cover.jpg');
 
         $context = DeserializationContext::create();
-        $event   = new PreSerializeEvent($context, $picture, []);
-        $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, UserA::class, $context->getFormat(), $event);
+        $event = new PreSerializeEvent($context, $picture, []);
+        $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, UserPicture::class, $context->getFormat(), $event);
 
         $this->assertEquals('http://example.com/uploads/photo.jpg', $picture->getPhotoName());
         $this->assertEquals('http://example.com/uploads/cover.jpg', $picture->getCoverName());
+
+        $picture->setStatus(false);
+        $event = new ObjectEvent($context, $picture, []);
+        $this->dispatcher->dispatch(JmsEvents::POST_SERIALIZE, UserPicture::class, $context->getFormat(), $event);
+
+        $this->assertNotEquals('http://example.com/uploads/photo.jpg', $picture->getPhotoName());
+        $this->assertNotEquals('http://example.com/uploads/cover.jpg', $picture->getCoverName());
+        $this->assertEquals('photo.jpg', $picture->getPhotoName());
+        $this->assertEquals('cover.jpg', $picture->getCoverName());
     }
 
     protected function generateRequestContext($https = false, $port = false)

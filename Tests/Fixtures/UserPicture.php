@@ -209,4 +209,12 @@ class UserPicture implements Proxy
 
         return $this;
     }
+
+    /**
+     * @param bool $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 }
