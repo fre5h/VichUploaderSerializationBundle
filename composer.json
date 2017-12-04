@@ -44,6 +44,11 @@
             "/Tests/"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Fresh\\VichUploaderSerializationBundle\\Tests\\": "Tests/"
+        }
+    },    
     "extra": {
         "branch-alias": {
             "dev-master": "2.x-dev"
