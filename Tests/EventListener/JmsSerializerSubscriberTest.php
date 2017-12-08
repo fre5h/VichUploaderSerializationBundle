@@ -26,6 +26,7 @@ use JMS\Serializer\EventDispatcher\Events as JmsEvents;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use Monolog\Logger;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Routing\RequestContext;
 use Vich\UploaderBundle\Storage\FileSystemStorage;
@@ -36,7 +37,7 @@ use Vich\UploaderBundle\Storage\StorageInterface;
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
  */
-class JmsSerializerSubscriberTest extends \PHPUnit_Framework_TestCase
+class JmsSerializerSubscriberTest extends TestCase
 {
     /** @var EventDispatcherInterface */
     private $dispatcher;

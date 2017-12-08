@@ -11,14 +11,17 @@
 namespace Fresh\VichUploaderSerializationBundle\Tests\DependencyInjection;
 
 use Fresh\VichUploaderSerializationBundle\DependencyInjection\FreshVichUploaderSerializationExtension;
+use Fresh\VichUploaderSerializationBundle\EventListener\JmsSerializerSubscriber;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 /**
  * FreshVichUploaderSerializationExtensionTest.
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
  */
-class FreshVichUploaderSerializationExtensionTest extends \PHPUnit_Framework_TestCase
+class FreshVichUploaderSerializationExtensionTest extends TestCase
 {
     /** @var FreshVichUploaderSerializationExtension */
     private $extension;
@@ -48,6 +51,9 @@ class FreshVichUploaderSerializationExtensionTest extends \PHPUnit_Framework_Tes
         $this->container->loadFromExtension($this->extension->getAlias());
         $this->container->compile();
 
-        $this->assertFalse($this->container->has('vich_uploader_serialization.jms_serializer.subscriber')); // because private
+        $this->assertArrayHasKey(JmsSerializerSubscriber::class, $this->container->getRemovedIds());
+        $this->assertArrayNotHasKey(JmsSerializerSubscriber::class, $this->container->getDefinitions());
+        $this->expectException(ServiceNotFoundException::class);
+        $this->container->get(JmsSerializerSubscriber::class);
     }
 }

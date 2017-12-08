@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Fresh\VichUploaderSerializationBundle\EventListener;
 
 use Doctrine\Common\Annotations\CachedReader;
@@ -70,7 +72,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     /**
      * @return array
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ['event' => Events::PRE_SERIALIZE, 'method' => 'onPreSerialize'],
@@ -83,7 +85,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
      *
      * @throws IncompatibleUploadableAndSerializableFieldAnnotationException
      */
-    public function onPreSerialize(PreSerializeEvent $event)
+    public function onPreSerialize(PreSerializeEvent $event): void
     {
         $object = $event->getObject();
 
@@ -148,7 +150,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     /**
      * @param ObjectEvent $event
      */
-    public function onPostSerialize(ObjectEvent $event)
+    public function onPostSerialize(ObjectEvent $event): void
     {
         $object = $event->getObject();
 
@@ -174,7 +176,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
      *
      * @return string
      */
-    private function getHostUrl()
+    private function getHostUrl(): string
     {
         $scheme = $this->requestContext->getScheme();
         $url = $scheme.'://'.$this->requestContext->getHost();

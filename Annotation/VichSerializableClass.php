@@ -10,7 +10,7 @@
 
 namespace Fresh\VichUploaderSerializationBundle\Annotation;
 
-use Doctrine\ORM\Mapping\Annotation;
+use Doctrine\Common\Annotations\Annotation;
 
 /**
  * VichSerializableClass Annotation Class.
@@ -21,6 +21,6 @@ use Doctrine\ORM\Mapping\Annotation;
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
  */
-final class VichSerializableClass implements Annotation
+final class VichSerializableClass
 {
 }

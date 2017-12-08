@@ -1,13 +1,10 @@
 services:
-    vich_uploader_serialization.jms_serializer.subscriber:
-        class: Fresh\VichUploaderSerializationBundle\EventListener\JmsSerializerSubscriber
+    _defaults:
+        autowire: true
+        autoconfigure: true
         public: false
-        arguments:
-            - "@vich_uploader.storage"
-            - "@router.request_context"
-            - "@annotations.cached_reader"
-            - "@property_accessor"
-            - "@logger"
+
+    Fresh\VichUploaderSerializationBundle\EventListener\JmsSerializerSubscriber:
         tags:
-            - { name: jms_serializer.event_subscriber }
+            - 'jms_serializer.event_subscriber'
             - { name: monolog.logger, channel: vich_uploader_serialization }
