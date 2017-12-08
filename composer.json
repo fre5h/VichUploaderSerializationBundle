@@ -29,7 +29,7 @@
         "symfony/property-access": "^3.4 || ^4.0",
         "symfony/routing": "^3.4 || ^4.0",
         "doctrine/common": "^2.8",
-        "vich/uploader-bundle": "^1.6",
+        "vich/uploader-bundle": "^1.7",
         "jms/serializer-bundle": "^2.3"
     },
     "require-dev": {
@@ -48,7 +48,7 @@
         "psr-4": {
             "Fresh\\VichUploaderSerializationBundle\\Tests\\": "Tests/"
         }
-    },    
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "2.x-dev"
