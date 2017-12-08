@@ -16,11 +16,14 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93/small.png)](https://insight.sensiolabs.com/projects/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93)
 [![knpbundles.com](http://knpbundles.com/fre5h/VichUploaderSerializationBundle/badge-short)](http://knpbundles.com/fre5h/VichUploaderSerializationBundle)
 
+## Requirements
+
+* PHP 7.1 and *later*
+* Symfony 3.4 and *later*
+
 ## Installation
 
 ```composer req fresh/vich-uploader-serialization-bundle='~2.0'```
-
-Registration in Kernel for Symfony 4.0 is done automatically.
 
 ## Usage
 
