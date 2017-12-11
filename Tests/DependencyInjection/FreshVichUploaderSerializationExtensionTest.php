@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Routing\RequestContext;
-use Vich\UploaderBundle\Storage\StorageInterface;
+use Vich\UploaderBundle\Storage\GaufretteStorage;
 
 /**
  * FreshVichUploaderSerializationExtensionTest.
@@ -47,7 +47,7 @@ class FreshVichUploaderSerializationExtensionTest extends TestCase
     public function testLoadExtension()
     {
         // Add some dummy required services
-        $this->container->set(StorageInterface::class, new \stdClass());
+        $this->container->set(GaufretteStorage::class, new \stdClass());
         $this->container->set(RequestContext::class, new \stdClass());
         $this->container->set(CachedReader::class, new \stdClass());
         $this->container->set(Logger::class, new \stdClass());
