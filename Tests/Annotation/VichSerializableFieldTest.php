@@ -24,24 +24,24 @@ class VichSerializableFieldTest extends TestCase
     {
         $annotation = new VichSerializableField(['value' => 'photoFile']);
 
-        $this->assertEquals('photoFile', $annotation->getField());
-        $this->assertTrue($annotation->isIncludeHost());
+        self::assertEquals('photoFile', $annotation->getField());
+        self::assertTrue($annotation->isIncludeHost());
     }
 
     public function testFieldOption()
     {
         $annotation = new VichSerializableField(['field' => 'photoFile']);
 
-        $this->assertEquals('photoFile', $annotation->getField());
-        $this->assertTrue($annotation->isIncludeHost());
+        self::assertEquals('photoFile', $annotation->getField());
+        self::assertTrue($annotation->isIncludeHost());
     }
 
     public function testValueAndIncludeHostOptions()
     {
         $annotation = new VichSerializableField(['value' => 'photoFile', 'includeHost' => false]);
 
-        $this->assertEquals('photoFile', $annotation->getField());
-        $this->assertFalse($annotation->isIncludeHost());
+        self::assertEquals('photoFile', $annotation->getField());
+        self::assertFalse($annotation->isIncludeHost());
     }
 
     /**
