@@ -33,7 +33,7 @@
         "jms/serializer-bundle": "^2.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "6.5.*",
+        "phpunit/phpunit": "^6.5",
         "escapestudios/symfony2-coding-standard": "^3.0"
     },
     "autoload": {
