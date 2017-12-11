@@ -10,11 +10,16 @@
 
 namespace Fresh\VichUploaderSerializationBundle\Tests\DependencyInjection;
 
+use Doctrine\Common\Annotations\CachedReader;
 use Fresh\VichUploaderSerializationBundle\DependencyInjection\FreshVichUploaderSerializationExtension;
 use Fresh\VichUploaderSerializationBundle\EventListener\JmsSerializerSubscriber;
+use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
+use Symfony\Component\Routing\RequestContext;
+use Vich\UploaderBundle\Storage\StorageInterface;
 
 /**
  * FreshVichUploaderSerializationExtensionTest.
@@ -42,11 +47,11 @@ class FreshVichUploaderSerializationExtensionTest extends TestCase
     public function testLoadExtension()
     {
         // Add some dummy required services
-        $this->container->set('vich_uploader.storage', new \stdClass());
-        $this->container->set('router.request_context', new \stdClass());
-        $this->container->set('annotations.cached_reader', new \stdClass());
-        $this->container->set('logger', new \stdClass());
-        $this->container->set('property_accessor', new \stdClass());
+        $this->container->set(StorageInterface::class, new \stdClass());
+        $this->container->set(RequestContext::class, new \stdClass());
+        $this->container->set(CachedReader::class, new \stdClass());
+        $this->container->set(Logger::class, new \stdClass());
+        $this->container->set(PropertyAccessor::class, new \stdClass());
 
         $this->container->loadFromExtension($this->extension->getAlias());
         $this->container->compile();
