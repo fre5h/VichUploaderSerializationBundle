@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Fresh\VichUploaderSerializationBundle\EventListener;
 
-use Doctrine\Common\Annotations\CachedReader;
+use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Persistence\Proxy;
 use Doctrine\Common\Util\ClassUtils;
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableClass;
@@ -41,7 +41,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     /** @var RequestContext */
     private $requestContext;
 
-    /** @var CachedReader */
+    /** @var Reader */
     private $annotationReader;
 
     /** @var PropertyAccessor */
@@ -56,11 +56,11 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     /**
      * @param StorageInterface $storage
      * @param RequestContext   $requestContext
-     * @param CachedReader     $annotationReader
+     * @param Reader     $annotationReader
      * @param PropertyAccessor $propertyAccessor
      * @param Logger           $logger
      */
-    public function __construct(StorageInterface $storage, RequestContext $requestContext, CachedReader $annotationReader, PropertyAccessor $propertyAccessor, Logger $logger)
+    public function __construct(StorageInterface $storage, RequestContext $requestContext, Reader $annotationReader, PropertyAccessor $propertyAccessor, Logger $logger)
     {
         $this->storage = $storage;
         $this->requestContext = $requestContext;
