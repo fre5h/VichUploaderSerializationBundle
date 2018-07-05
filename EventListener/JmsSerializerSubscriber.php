@@ -22,7 +22,7 @@ use JMS\Serializer\EventDispatcher\Events;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
-use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Routing\RequestContext;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
@@ -47,7 +47,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     /** @var PropertyAccessorInterface */
     private $propertyAccessor;
 
-    /** @var Logger */
+    /** @var LoggerInterface */
     private $logger;
 
     /** @var array */
@@ -58,9 +58,9 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
      * @param RequestContext   $requestContext
      * @param Reader     $annotationReader
      * @param PropertyAccessorInterface $propertyAccessor
-     * @param Logger           $logger
+     * @param LoggerInterface           $logger
      */
-    public function __construct(StorageInterface $storage, RequestContext $requestContext, Reader $annotationReader, PropertyAccessorInterface $propertyAccessor, Logger $logger)
+    public function __construct(StorageInterface $storage, RequestContext $requestContext, Reader $annotationReader, PropertyAccessorInterface $propertyAccessor, LoggerInterface $logger)
     {
         $this->storage = $storage;
         $this->requestContext = $requestContext;
