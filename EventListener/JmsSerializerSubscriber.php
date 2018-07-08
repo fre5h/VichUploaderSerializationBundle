@@ -54,9 +54,9 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     private $serializedObjects = [];
 
     /**
-     * @param StorageInterface $storage
-     * @param RequestContext   $requestContext
-     * @param Reader     $annotationReader
+     * @param StorageInterface          $storage
+     * @param RequestContext            $requestContext
+     * @param Reader                    $annotationReader
      * @param PropertyAccessorInterface $propertyAccessor
      * @param LoggerInterface           $logger
      */
