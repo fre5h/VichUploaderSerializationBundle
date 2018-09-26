@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Fresh\VichUploaderSerializationBundle\EventListener;
 
-use Doctrine\Common\Annotations\CachedReader;
+use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Persistence\Proxy;
 use Doctrine\Common\Util\ClassUtils;
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableClass;
@@ -22,8 +22,8 @@ use JMS\Serializer\EventDispatcher\Events;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
-use Monolog\Logger;
-use Symfony\Component\PropertyAccess\PropertyAccessor;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Component\Routing\RequestContext;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 use Vich\UploaderBundle\Storage\StorageInterface;
@@ -41,26 +41,26 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     /** @var RequestContext */
     private $requestContext;
 
-    /** @var CachedReader */
+    /** @var Reader */
     private $annotationReader;
 
-    /** @var PropertyAccessor */
+    /** @var PropertyAccessorInterface */
     private $propertyAccessor;
 
-    /** @var Logger */
+    /** @var LoggerInterface */
     private $logger;
 
     /** @var array */
     private $serializedObjects = [];
 
     /**
-     * @param StorageInterface $storage
-     * @param RequestContext   $requestContext
-     * @param CachedReader     $annotationReader
-     * @param PropertyAccessor $propertyAccessor
-     * @param Logger           $logger
+     * @param StorageInterface          $storage
+     * @param RequestContext            $requestContext
+     * @param Reader                    $annotationReader
+     * @param PropertyAccessorInterface $propertyAccessor
+     * @param LoggerInterface           $logger
      */
-    public function __construct(StorageInterface $storage, RequestContext $requestContext, CachedReader $annotationReader, PropertyAccessor $propertyAccessor, Logger $logger)
+    public function __construct(StorageInterface $storage, RequestContext $requestContext, Reader $annotationReader, PropertyAccessorInterface $propertyAccessor, LoggerInterface $logger)
     {
         $this->storage = $storage;
         $this->requestContext = $requestContext;
