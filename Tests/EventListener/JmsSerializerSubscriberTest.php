@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Fresh\VichUploaderSerializationBundle\Tests\EventListener;
 
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -15,6 +17,7 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Annotations\CachedReader;
 use Doctrine\Common\Cache\ArrayCache;
 use Fresh\VichUploaderSerializationBundle\EventListener\JmsSerializerSubscriber;
+use Fresh\VichUploaderSerializationBundle\Exception\IncompatibleUploadableAndSerializableFieldAnnotationException;
 use Fresh\VichUploaderSerializationBundle\Tests\Fixtures\UserA;
 use Fresh\VichUploaderSerializationBundle\Tests\Fixtures\UserB;
 use Fresh\VichUploaderSerializationBundle\Tests\Fixtures\UserC;
@@ -60,29 +63,32 @@ class JmsSerializerSubscriberTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         AnnotationRegistry::registerLoader('class_exists');
 
         $this->storage = $this->getMockBuilder(FileSystemStorage::class)->disableOriginalConstructor()->getMock();
-        $this->storage->expects($this->any())
-                      ->method('resolveUri')
-                      ->will($this->onConsecutiveCalls('/uploads/photo.jpg', '/uploads/cover.jpg', '/uploads/photo.jpg', '/uploads/cover.jpg'));
+        $this->storage
+            ->method('resolveUri')
+            ->will($this->onConsecutiveCalls('/uploads/photo.jpg', '/uploads/cover.jpg', '/uploads/photo.jpg', '/uploads/cover.jpg'))
+        ;
 
         $this->propertyAccessor = new PropertyAccessor();
 
         $this->annotationReader = new CachedReader(new AnnotationReader(), new ArrayCache());
 
-        $this->logger = $this->getMockBuilder(Logger::class)
-                             ->disableOriginalConstructor()
-                             ->setMethods(['debug'])
-                             ->getMock();
+        $this->logger = $this
+            ->getMockBuilder(Logger::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['debug'])
+            ->getMock()
+        ;
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->dispatcher = null;
         $this->storage = null;
@@ -92,7 +98,7 @@ class JmsSerializerSubscriberTest extends TestCase
         $this->logger = null;
     }
 
-    public function testSerializationWithIncludedHost()
+    public function testSerializationWithIncludedHost(): void
     {
         $this->generateRequestContext();
 
@@ -108,7 +114,7 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('http://example.com/uploads/cover.jpg', $user->getCoverName());
     }
 
-    public function testPostSerializationEvent()
+    public function testPostSerializationEvent(): void
     {
         $this->generateRequestContext();
 
@@ -132,7 +138,7 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('cover.jpg', $user->getCoverName());
     }
 
-    public function testPostSerializationEventWithoutPreviousSerialization()
+    public function testPostSerializationEventWithoutPreviousSerialization(): void
     {
         $this->generateRequestContext();
 
@@ -150,7 +156,7 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('cover.jpg', $user->getCoverName());
     }
 
-    public function testSerializationWithIncludedHttpHostAndPort()
+    public function testSerializationWithIncludedHttpHostAndPort(): void
     {
         $this->generateRequestContext(false, true);
 
@@ -166,7 +172,7 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('http://example.com:8000/uploads/cover.jpg', $user->getCoverName());
     }
 
-    public function testSerializationWithIncludedHttpsHostAndPort()
+    public function testSerializationWithIncludedHttpsHostAndPort(): void
     {
         $this->generateRequestContext(true, true);
 
@@ -182,7 +188,7 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('https://example.com:8800/uploads/cover.jpg', $user->getCoverName());
     }
 
-    public function testSerializationWithoutIncludedHost()
+    public function testSerializationWithoutIncludedHost(): void
     {
         $this->generateRequestContext();
 
@@ -198,16 +204,15 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('/uploads/cover.jpg', $user->getCoverName());
     }
 
-    /**
-     * @expectedException \Fresh\VichUploaderSerializationBundle\Exception\IncompatibleUploadableAndSerializableFieldAnnotationException
-     */
-    public function testExceptionForIncompatibleAnnotations()
+    public function testExceptionForIncompatibleAnnotations(): void
     {
         $this->generateRequestContext();
 
         $user = (new UserC())
             ->setPhotoName('photo.jpg')
             ->setCoverName('cover.jpg');
+
+        $this->expectException(IncompatibleUploadableAndSerializableFieldAnnotationException::class);
 
         $context = DeserializationContext::create();
         $event = new PreSerializeEvent($context, $user, []);
@@ -217,7 +222,7 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('/uploads/cover.jpg', $user->getCoverName());
     }
 
-    public function testSerializationOfTheSameObjectTwice()
+    public function testSerializationOfTheSameObjectTwice(): void
     {
         $this->generateRequestContext();
 
@@ -239,7 +244,7 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('http://example.com/uploads/cover.jpg', $user->getCoverName());
     }
 
-    public function testDeserializationEventOfTheSameObjectTwice()
+    public function testDeserializationEventOfTheSameObjectTwice(): void
     {
         $this->generateRequestContext();
 
@@ -277,7 +282,7 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('cover.jpg', $user->getCoverName());
     }
 
-    public function testSerializationOfTheProxyObject()
+    public function testSerializationOfTheProxyObject(): void
     {
         $this->generateRequestContext();
 
@@ -302,7 +307,7 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('cover.jpg', $picture->getCoverName());
     }
 
-    protected function generateRequestContext($https = false, $port = false)
+    protected function generateRequestContext($https = false, $port = false): void
     {
         $this->requestContext = $this->getMockBuilder(RequestContext::class)
                                      ->disableOriginalConstructor()
@@ -310,21 +315,21 @@ class JmsSerializerSubscriberTest extends TestCase
 
         $scheme = $https ? 'https' : 'http';
 
-        $this->requestContext->expects($this->any())->method('getScheme')->willReturn($scheme);
-        $this->requestContext->expects($this->any())->method('getHost')->willReturn('example.com');
+        $this->requestContext->method('getScheme')->willReturn($scheme);
+        $this->requestContext->method('getHost')->willReturn('example.com');
 
         if ($port) {
             if ($https) {
-                $this->requestContext->expects($this->any())->method('getHttpsPort')->willReturn(8800);
+                $this->requestContext->method('getHttpsPort')->willReturn(8800);
             } else {
-                $this->requestContext->expects($this->any())->method('getHttpPort')->willReturn(8000);
+                $this->requestContext->method('getHttpPort')->willReturn(8000);
             }
         }
 
         $this->addJmsSerializerSubscriber();
     }
 
-    protected function addJmsSerializerSubscriber()
+    protected function addJmsSerializerSubscriber(): void
     {
         $this->dispatcher = new EventDispatcher();
         $this->dispatcher->addSubscriber(new JmsSerializerSubscriber(

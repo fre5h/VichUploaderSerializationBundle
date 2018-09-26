@@ -89,10 +89,8 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     {
         $object = $event->getObject();
 
-        if ($object instanceof Proxy) {
-            if (!$object->__isInitialized()) {
-                $object->__load();
-            }
+        if ($object instanceof Proxy && !$object->__isInitialized()) {
+            $object->__load();
         }
 
         $objectUid = \spl_object_hash($object);
@@ -154,10 +152,8 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     {
         $object = $event->getObject();
 
-        if ($object instanceof Proxy) {
-            if (!$object->__isInitialized()) {
-                $object->__load();
-            }
+        if ($object instanceof Proxy && !$object->__isInitialized()) {
+            $object->__load();
         }
 
         $objectUid = \spl_object_hash($object);

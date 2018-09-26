@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Fresh\VichUploaderSerializationBundle\Tests\Annotation;
 
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableField;
@@ -20,7 +22,7 @@ use PHPUnit\Framework\TestCase;
  */
 class VichSerializableFieldTest extends TestCase
 {
-    public function testValueOption()
+    public function testValueOption(): void
     {
         $annotation = new VichSerializableField(['value' => 'photoFile']);
 
@@ -28,7 +30,7 @@ class VichSerializableFieldTest extends TestCase
         self::assertTrue($annotation->isIncludeHost());
     }
 
-    public function testFieldOption()
+    public function testFieldOption(): void
     {
         $annotation = new VichSerializableField(['field' => 'photoFile']);
 
@@ -36,7 +38,7 @@ class VichSerializableFieldTest extends TestCase
         self::assertTrue($annotation->isIncludeHost());
     }
 
-    public function testValueAndIncludeHostOptions()
+    public function testValueAndIncludeHostOptions(): void
     {
         $annotation = new VichSerializableField(['value' => 'photoFile', 'includeHost' => false]);
 
@@ -47,7 +49,7 @@ class VichSerializableFieldTest extends TestCase
     /**
      * @expectedException \LogicException
      */
-    public function testAnnotationWithoutOptions()
+    public function testAnnotationWithoutOptions(): void
     {
         new VichSerializableField([]);
     }
@@ -55,7 +57,7 @@ class VichSerializableFieldTest extends TestCase
     /**
      * @expectedException \LogicException
      */
-    public function testAnnotationWithoutIncludeHostOption()
+    public function testAnnotationWithoutIncludeHostOption(): void
     {
         new VichSerializableField(['includeHost' => false]);
     }
@@ -63,7 +65,7 @@ class VichSerializableFieldTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testWrongTypeForValueOption()
+    public function testWrongTypeForValueOption(): void
     {
         new VichSerializableField(['value' => 123]);
     }
@@ -71,7 +73,7 @@ class VichSerializableFieldTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testWrongTypeForFieldOption()
+    public function testWrongTypeForFieldOption(): void
     {
         new VichSerializableField(['field' => 123]);
     }
@@ -79,7 +81,7 @@ class VichSerializableFieldTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testWrongTypeForFieldIncludeHost()
+    public function testWrongTypeForFieldIncludeHost(): void
     {
         new VichSerializableField(['value' => 'photoFile', 'includeHost' => 123]);
     }
