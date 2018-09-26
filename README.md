@@ -23,7 +23,7 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 
 ## Installation
 
-```composer req fresh/vich-uploader-serialization-bundle='~2.0'```
+```composer req fresh/vich-uploader-serialization-bundle='~2.1'```
 
 ## Usage
 
