@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Fresh\VichUploaderSerializationBundle\Tests\DependencyInjection;
 
 use Doctrine\Common\Annotations\CachedReader;
@@ -37,14 +39,14 @@ class FreshVichUploaderSerializationExtensionTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->extension = new FreshVichUploaderSerializationExtension();
         $this->container = new ContainerBuilder();
         $this->container->registerExtension($this->extension);
     }
 
-    public function testLoadExtension()
+    public function testLoadExtension(): void
     {
         // Add some dummy required services
         $this->container->set(GaufretteStorage::class, new \stdClass());
@@ -56,8 +58,8 @@ class FreshVichUploaderSerializationExtensionTest extends TestCase
         $this->container->loadFromExtension($this->extension->getAlias());
         $this->container->compile();
 
-        $this->assertArrayHasKey(JmsSerializerSubscriber::class, $this->container->getRemovedIds());
-        $this->assertArrayNotHasKey(JmsSerializerSubscriber::class, $this->container->getDefinitions());
+        self::assertArrayHasKey(JmsSerializerSubscriber::class, $this->container->getRemovedIds());
+        self::assertArrayNotHasKey(JmsSerializerSubscriber::class, $this->container->getDefinitions());
         $this->expectException(ServiceNotFoundException::class);
         $this->container->get(JmsSerializerSubscriber::class);
     }
