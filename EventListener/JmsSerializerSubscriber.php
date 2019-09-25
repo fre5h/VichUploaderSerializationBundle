@@ -88,6 +88,9 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     public function onPreSerialize(PreSerializeEvent $event): void
     {
         $object = $event->getObject();
+        if (!is_object($object)) {
+            return;
+        }
 
         if ($object instanceof Proxy && !$object->__isInitialized()) {
             $object->__load();
@@ -151,6 +154,9 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     public function onPostSerialize(ObjectEvent $event): void
     {
         $object = $event->getObject();
+        if (!is_object($object)) {
+            return;
+        }
 
         if ($object instanceof Proxy && !$object->__isInitialized()) {
             $object->__load();
