@@ -88,7 +88,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     public function onPreSerialize(PreSerializeEvent $event): void
     {
         $object = $event->getObject();
-        if(!is_object($object)) {
+        if (!is_object($object)) {
             return;
         }
 
@@ -154,7 +154,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     public function onPostSerialize(ObjectEvent $event): void
     {
         $object = $event->getObject();
-        if(!is_object($object)) {
+        if (!is_object($object)) {
             return;
         }
 
