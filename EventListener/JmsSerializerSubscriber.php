@@ -29,7 +29,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
 /**
- * JmsPreSerializeListener Class.
+ * JmsSerializerSubscriber.
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
  */
@@ -120,11 +120,12 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
                     $vichUploadableFileAnnotation = $this->annotationReader->getPropertyAnnotation($property, UploadableField::class);
 
                     if ($vichUploadableFileAnnotation instanceof UploadableField) {
-                        throw new IncompatibleUploadableAndSerializableFieldAnnotationException(\sprintf(
+                        $exceptionMessage = \sprintf(
                             'The field "%s" in the class "%s" cannot have @UploadableField and @VichSerializableField annotations at the same moment.',
                             $property->getName(),
                             $reflectionClass->getName()
-                        ));
+                        );
+                        throw new IncompatibleUploadableAndSerializableFieldAnnotationException($exceptionMessage);
                     }
                     $this->logger->debug(\sprintf(
                         'Found @VichSerializableField annotation for the field "%s" in the class "%s"',
