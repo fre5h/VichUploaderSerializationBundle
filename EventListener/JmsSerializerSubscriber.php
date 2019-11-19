@@ -125,6 +125,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
                             $property->getName(),
                             $reflectionClass->getName()
                         );
+
                         throw new IncompatibleUploadableAndSerializableFieldAnnotationException($exceptionMessage);
                     }
                     $this->logger->debug(\sprintf(
