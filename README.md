@@ -19,11 +19,11 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 ## Requirements
 
 * PHP 7.1 and *later*
-* Symfony 3.4 and *later*
+* Symfony 3.4, 4.3 and *later*
 
 ## Installation
 
-```composer req fresh/vich-uploader-serialization-bundle='~2.3'```
+```composer req fresh/vich-uploader-serialization-bundle='~2.4'```
 
 ## Usage
 
