@@ -29,7 +29,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
 /**
- * JmsPreSerializeListener Class.
+ * JmsSerializerSubscriber.
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
  */
@@ -125,6 +125,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
                             $property->getName(),
                             $reflectionClass->getName()
                         );
+
                         throw new IncompatibleUploadableAndSerializableFieldAnnotationException($exceptionMessage);
                     }
                     $this->logger->debug(\sprintf(
