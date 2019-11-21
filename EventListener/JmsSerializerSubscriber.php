@@ -29,7 +29,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 use Vich\UploaderBundle\Storage\StorageInterface;
 
 /**
- * JmsPreSerializeListener Class.
+ * JmsSerializerSubscriber.
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
  */
@@ -88,6 +88,9 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     public function onPreSerialize(PreSerializeEvent $event): void
     {
         $object = $event->getObject();
+        if (!is_object($object)) {
+            return;
+        }
 
         if ($object instanceof Proxy && !$object->__isInitialized()) {
             $object->__load();
@@ -117,11 +120,13 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
                     $vichUploadableFileAnnotation = $this->annotationReader->getPropertyAnnotation($property, UploadableField::class);
 
                     if ($vichUploadableFileAnnotation instanceof UploadableField) {
-                        throw new IncompatibleUploadableAndSerializableFieldAnnotationException(\sprintf(
+                        $exceptionMessage = \sprintf(
                             'The field "%s" in the class "%s" cannot have @UploadableField and @VichSerializableField annotations at the same moment.',
                             $property->getName(),
                             $reflectionClass->getName()
-                        ));
+                        );
+
+                        throw new IncompatibleUploadableAndSerializableFieldAnnotationException($exceptionMessage);
                     }
                     $this->logger->debug(\sprintf(
                         'Found @VichSerializableField annotation for the field "%s" in the class "%s"',
@@ -134,7 +139,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
 
                     if ($property->getValue($event->getObject())) {
                         $uri = $this->storage->resolveUri($object, $vichSerializableAnnotation->getField());
-                        if ($vichSerializableAnnotation->isIncludeHost()) {
+                        if ($vichSerializableAnnotation->isIncludeHost() && false === \filter_var($uri, FILTER_VALIDATE_URL)) {
                             $uri = $this->getHostUrl().$uri;
                         }
                     }
@@ -151,6 +156,9 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     public function onPostSerialize(ObjectEvent $event): void
     {
         $object = $event->getObject();
+        if (!is_object($object)) {
+            return;
+        }
 
         if ($object instanceof Proxy && !$object->__isInitialized()) {
             $object->__load();

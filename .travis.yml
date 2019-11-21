@@ -5,11 +5,11 @@ sudo: false
 php:
   - 7.1
   - 7.2
+  - 7.3
 
 env:
   - SYMFONY_VERSION=3.4.*
-  - SYMFONY_VERSION=4.0.*
-  - SYMFONY_VERSION=4.1.*
+  - SYMFONY_VERSION=4.3.*
 
 before_install:
   - composer self-update
