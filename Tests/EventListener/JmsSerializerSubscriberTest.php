@@ -60,9 +60,6 @@ class JmsSerializerSubscriberTest extends TestCase
     /** @var Logger */
     private $logger;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         AnnotationRegistry::registerLoader('class_exists');
@@ -76,22 +73,21 @@ class JmsSerializerSubscriberTest extends TestCase
         $this->logger = $this
             ->getMockBuilder(Logger::class)
             ->disableOriginalConstructor()
-            ->setMethods(['debug'])
+            ->onlyMethods(['debug'])
             ->getMock()
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function tearDown(): void
     {
-        $this->dispatcher = null;
-        $this->storage = null;
-        $this->requestContext = null;
-        $this->annotationReader = null;
-        $this->propertyAccessor = null;
-        $this->logger = null;
+        unset(
+            $this->dispatcher,
+            $this->storage,
+            $this->requestContext,
+            $this->annotationReader,
+            $this->propertyAccessor,
+            $this->logger
+        );
     }
 
     public function testSerializationWithIncludedHost(): void

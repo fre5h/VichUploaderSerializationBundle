@@ -13,6 +13,8 @@ declare(strict_types=1);
 namespace Fresh\VichUploaderSerializationBundle\Tests\Annotation;
 
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableField;
+use Fresh\VichUploaderSerializationBundle\Exception\InvalidArgumentException;
+use Fresh\VichUploaderSerializationBundle\Exception\LogicException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,43 +48,38 @@ class VichSerializableFieldTest extends TestCase
         self::assertFalse($annotation->isIncludeHost());
     }
 
-    /**
-     * @expectedException \LogicException
-     */
     public function testAnnotationWithoutOptions(): void
     {
+        $this->expectException(LogicException::class);
+
         new VichSerializableField([]);
     }
 
-    /**
-     * @expectedException \LogicException
-     */
     public function testAnnotationWithoutIncludeHostOption(): void
     {
+        $this->expectException(LogicException::class);
+
         new VichSerializableField(['includeHost' => false]);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testWrongTypeForValueOption(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         new VichSerializableField(['value' => 123]);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testWrongTypeForFieldOption(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         new VichSerializableField(['field' => 123]);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testWrongTypeForFieldIncludeHost(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         new VichSerializableField(['value' => 'photoFile', 'includeHost' => 123]);
     }
 }

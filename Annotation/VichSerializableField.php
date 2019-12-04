@@ -13,6 +13,8 @@ declare(strict_types=1);
 namespace Fresh\VichUploaderSerializationBundle\Annotation;
 
 use Doctrine\Common\Annotations\Annotation;
+use Fresh\VichUploaderSerializationBundle\Exception\InvalidArgumentException;
+use Fresh\VichUploaderSerializationBundle\Exception\LogicException;
 
 /**
  * VichSerializableField Annotation Class.
@@ -32,31 +34,32 @@ final class VichSerializableField
     private $includeHost = true;
 
     /**
-     * @param array $options
+     * @param mixed[] $options
      *
-     * @throws \Exception
+     * @throws LogicException
+     * @throws InvalidArgumentException
      */
     public function __construct(array $options)
     {
         if (!isset($options['value']) && !isset($options['field'])) {
-            throw new \LogicException(\sprintf('Either "value" or "field" option must be set.'));
+            throw new LogicException(\sprintf('Either "value" or "field" option must be set.'));
         }
 
         if (isset($options['value'])) {
             if (!\is_string($options['value'])) {
-                throw new \InvalidArgumentException(\sprintf('Option "value" must be a string.'));
+                throw new InvalidArgumentException(\sprintf('Option "value" must be a string.'));
             }
             $this->setField($options['value']);
         } elseif (isset($options['field'])) {
             if (!\is_string($options['field'])) {
-                throw new \InvalidArgumentException(\sprintf('Option "field" must be a string.'));
+                throw new InvalidArgumentException(\sprintf('Option "field" must be a string.'));
             }
             $this->setField($options['field']);
         }
 
         if (isset($options['includeHost'])) {
             if (!\is_bool($options['includeHost'])) {
-                throw new \InvalidArgumentException(\sprintf('Option "includeHost" must be a boolean.'));
+                throw new InvalidArgumentException(\sprintf('Option "includeHost" must be a boolean.'));
             }
             $this->setIncludeHost($options['includeHost']);
         }

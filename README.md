@@ -18,12 +18,12 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 
 ## Requirements
 
-* PHP 7.1 and *later*
-* Symfony 3.4, 4.3 and *later*
+* PHP 7.2 and *later*
+* Symfony 5.0 *later*
 
 ## Installation
 
-```composer req fresh/vich-uploader-serialization-bundle='~2.4'```
+```composer req fresh/vich-uploader-serialization-bundle='~3.0'```
 
 ## Usage
 
