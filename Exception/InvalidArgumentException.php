@@ -13,10 +13,10 @@ declare(strict_types=1);
 namespace Fresh\VichUploaderSerializationBundle\Exception;
 
 /**
- * IncompatibleUploadableAndSerializableFieldAnnotationException.
+ * InvalidArgumentException.
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
  */
-class IncompatibleUploadableAndSerializableFieldAnnotationException extends LogicException
+class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {
 }

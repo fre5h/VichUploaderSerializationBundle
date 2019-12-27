@@ -29,6 +29,7 @@ use JMS\Serializer\EventDispatcher\Events as JmsEvents;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use Monolog\Logger;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Routing\RequestContext;
@@ -57,12 +58,9 @@ class JmsSerializerSubscriberTest extends TestCase
     /** @var PropertyAccessor */
     private $propertyAccessor;
 
-    /** @var Logger */
+    /** @var Logger|MockObject */
     private $logger;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         AnnotationRegistry::registerLoader('class_exists');
@@ -70,28 +68,25 @@ class JmsSerializerSubscriberTest extends TestCase
         $this->setFileSystemStorage('/uploads/photo.jpg', '/uploads/cover.jpg', '/uploads/photo.jpg', '/uploads/cover.jpg');
 
         $this->propertyAccessor = new PropertyAccessor();
-
         $this->annotationReader = new CachedReader(new AnnotationReader(), new ArrayCache());
-
         $this->logger = $this
             ->getMockBuilder(Logger::class)
             ->disableOriginalConstructor()
-            ->setMethods(['debug'])
+            ->onlyMethods(['debug'])
             ->getMock()
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function tearDown(): void
     {
-        $this->dispatcher = null;
-        $this->storage = null;
-        $this->requestContext = null;
-        $this->annotationReader = null;
-        $this->propertyAccessor = null;
-        $this->logger = null;
+        unset(
+            $this->dispatcher,
+            $this->storage,
+            $this->requestContext,
+            $this->annotationReader,
+            $this->propertyAccessor,
+            $this->logger
+        );
     }
 
     public function testSerializationWithIncludedHost(): void
@@ -320,11 +315,9 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('cover.jpg', $picture->getCoverName());
     }
 
-    protected function generateRequestContext($https = false, $port = false): void
+    private function generateRequestContext($https = false, $port = false): void
     {
-        $this->requestContext = $this->getMockBuilder(RequestContext::class)
-                                     ->disableOriginalConstructor()
-                                     ->getMock();
+        $this->requestContext = $this->createMock(RequestContext::class);
 
         $scheme = $https ? 'https' : 'http';
 
@@ -342,7 +335,7 @@ class JmsSerializerSubscriberTest extends TestCase
         $this->addJmsSerializerSubscriber();
     }
 
-    protected function addJmsSerializerSubscriber(): void
+    private function addJmsSerializerSubscriber(): void
     {
         $this->dispatcher = new EventDispatcher();
         $this->dispatcher->addSubscriber(new JmsSerializerSubscriber(
@@ -354,12 +347,12 @@ class JmsSerializerSubscriberTest extends TestCase
         ));
     }
 
-    protected function setFileSystemStorage(...$uris): void
+    private function setFileSystemStorage(...$uris): void
     {
-        $this->storage = $this->getMockBuilder(FileSystemStorage::class)->disableOriginalConstructor()->getMock();
+        $this->storage = $this->createMock(FileSystemStorage::class);
         $this->storage
             ->method('resolveUri')
-            ->will($this->onConsecutiveCalls(...$uris))
-      ;
+            ->willReturnOnConsecutiveCalls(...$uris)
+        ;
     }
 }

@@ -36,14 +36,19 @@ class FreshVichUploaderSerializationExtensionTest extends TestCase
     /** @var ContainerBuilder */
     private $container;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         $this->extension = new FreshVichUploaderSerializationExtension();
         $this->container = new ContainerBuilder();
         $this->container->registerExtension($this->extension);
+    }
+
+    protected function tearDown(): void
+    {
+        unset(
+            $this->extension,
+            $this->container
+        );
     }
 
     public function testLoadExtension(): void

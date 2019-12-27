@@ -18,18 +18,19 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * This is the class that loads and manages FreshVichUploaderSerializationExtension configuration.
+ * This is the class that loads and manages FreshVichUploaderSerializationBundle configuration.
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
  */
 class FreshVichUploaderSerializationExtension extends Extension
 {
     /**
-     * {@inheritdoc}
+     * @param mixed[]          $configs
+     * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        $loader->load('services.yaml');
     }
 }

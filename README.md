@@ -1,11 +1,11 @@
 # VichUploaderSerializationBundle
 
-Provides integration between [VichUploaderBundle](https://github.com/dustin10/VichUploaderBundle "VichUploaderBundle") and
+:package: Provides integration between [VichUploaderBundle](https://github.com/dustin10/VichUploaderBundle "VichUploaderBundle") and
 [JMSSerializerBundle](https://github.com/dustin10/VichUploaderBundle "JMSSerializerBundle").
 Allows to generate full or relative URIs to entity fields mapped with `@Vich` and `@JMS` annotations during the serialization.
 
 [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/fre5h/VichUploaderSerializationBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/fre5h/VichUploaderSerializationBundle/)
-[![Build Status](https://img.shields.io/travis/fre5h/VichUploaderSerializationBundle.svg?style=flat-square)](https://travis-ci.org/fre5h/VichUploaderSerializationBundle)
+[![Build Status](https://img.shields.io/travis/fre5h/VichUploaderSerializationBundle/master.svg?style=flat-square)](https://travis-ci.org/fre5h/VichUploaderSerializationBundle)
 [![CodeCov](https://img.shields.io/codecov/c/github/fre5h/VichUploaderSerializationBundle.svg?style=flat-square)](https://codecov.io/github/fre5h/VichUploaderSerializationBundle)
 [![License](https://img.shields.io/packagist/l/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
 [![Latest Stable Version](https://img.shields.io/packagist/v/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
@@ -18,12 +18,12 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 
 ## Requirements
 
-* PHP 7.1 and *later*
-* Symfony 3.4, 4.3 and *later*
+* PHP 7.2 and *later*
+* Symfony 5.0 *later*
 
 ## Installation
 
-```composer req fresh/vich-uploader-serialization-bundle='~2.4'```
+```composer req fresh/vich-uploader-serialization-bundle='~3.0'```
 
 ## Usage
 

@@ -13,10 +13,10 @@ declare(strict_types=1);
 namespace Fresh\VichUploaderSerializationBundle\Exception;
 
 /**
- * IncompatibleUploadableAndSerializableFieldAnnotationException.
+ * ExceptionInterface.
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
  */
-class IncompatibleUploadableAndSerializableFieldAnnotationException extends LogicException
+interface ExceptionInterface extends \Throwable
 {
 }
