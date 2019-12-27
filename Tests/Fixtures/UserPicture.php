@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Fresh\VichUploaderSerializationBundle\Tests\Fixtures;
 
-use Doctrine\Common\Persistence\Proxy;
+use Doctrine\Persistence\Proxy;
 use Fresh\VichUploaderSerializationBundle\Annotation as Fresh;
 use JMS\Serializer\Annotation as JMS;
 use Symfony\Component\HttpFoundation\File\File;
@@ -73,7 +73,7 @@ class UserPicture implements Proxy
     /**
      * @inheritdoc
      */
-    public function __load()
+    public function __load(): void
     {
         $this->setPhotoName('photo.jpg')
              ->setCoverName('cover.jpg');
@@ -83,7 +83,7 @@ class UserPicture implements Proxy
     /**
      * {@inheritdoc}
      */
-    public function __isInitialized()
+    public function __isInitialized(): bool
     {
         return $this->status;
     }

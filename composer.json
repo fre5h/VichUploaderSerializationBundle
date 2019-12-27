@@ -14,7 +14,7 @@
         {
             "name": "Community",
             "homepage": "https://github.com/fre5h/VichUploaderSerializationBundle/graphs/contributors",
-            "role": "Developers"
+            "role": "Contributors"
         }
     ],
     "support": {
@@ -23,7 +23,8 @@
     },
     "require": {
         "php": "^7.2.5",
-        "doctrine/common": "^2.9",
+        "doctrine/common": "^2.11",
+        "doctrine/persistence": "^1.3",
         "jms/serializer-bundle": "^3.0",
         "monolog/monolog": "^2.0",
         "symfony/config": "^5.0",
@@ -37,7 +38,7 @@
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-doctrine":"^0.12",
         "phpstan/phpstan-phpunit": "^0.12",
-        "phpunit/phpunit": "^8.4",
+        "phpunit/phpunit": "^8.5",
         "symfony/phpunit-bridge": "^5.0",
         "symfony/yaml": "^5.0"
     },
@@ -49,12 +50,12 @@
             "/Tests/"
         ]
     },
-    "config": {
-        "sort-packages": true
-    },
     "autoload-dev": {
         "psr-4": {
             "Fresh\\VichUploaderSerializationBundle\\Tests\\": "Tests/"
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
