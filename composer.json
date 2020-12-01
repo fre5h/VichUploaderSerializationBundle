@@ -34,7 +34,7 @@
         "vich/uploader-bundle": "^1.12"
     },
     "require-dev": {
-        "escapestudios/symfony2-coding-standard": "^3.10",
+        "escapestudios/symfony2-coding-standard": "^3.11",
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-doctrine":"^0.12",
         "phpstan/phpstan-phpunit": "^0.12",
