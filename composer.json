@@ -39,7 +39,6 @@
         "phpstan/phpstan-doctrine":"^0.12",
         "phpstan/phpstan-phpunit": "^0.12",
         "phpunit/phpunit": "^8.5",
-        "symfony/phpunit-bridge": "^5.0",
         "symfony/yaml": "^5.0"
     },
     "autoload": {
