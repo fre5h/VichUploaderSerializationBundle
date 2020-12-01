@@ -13,13 +13,12 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 [![StyleCI](https://styleci.io/repos/47037751/shield?style=flat-square)](https://styleci.io/repos/47037751)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat-square)](https://gitter.im/fre5h/VichUploaderSerializationBundle)
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93/small.png)](https://insight.sensiolabs.com/projects/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93)
 [![knpbundles.com](http://knpbundles.com/fre5h/VichUploaderSerializationBundle/badge-short)](http://knpbundles.com/fre5h/VichUploaderSerializationBundle)
 
 ## Requirements
 
-* PHP 7.2 and *later*
-* Symfony 5.0 *later*
+* PHP 7.2, 7.3, 7.4, 8.0
+* Symfony 5.0, 5.1, 5.2
 
 ## Installation
 
