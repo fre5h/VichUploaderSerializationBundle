@@ -16,7 +16,6 @@ php:
 env:
   global:
     - PHPUNIT_FLAGS="-v"
-    - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
   jobs:
     - SYMFONY_VERSION=5.2.*
     - SYMFONY_VERSION=5.1.*
@@ -68,7 +67,7 @@ install:
   - composer install --no-interaction --prefer-dist
 
 script:
-  - ./vendor/bin/simple-phpunit $PHPUNIT_FLAG -c phpunit.xml.dist
+  - ./vendor/bin/phpunit $PHPUNIT_FLAG -c phpunit.xml.dist
 
 notifications:
   email:
