@@ -15,7 +15,7 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 
 ## Requirements
 
-* PHP 7.2, 7.3, 7.4
+* PHP 7.3, 7.4
 * Symfony 5.0, 5.1, 5.2
 
 ## Installation
