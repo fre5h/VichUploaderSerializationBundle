@@ -13,8 +13,6 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 [![StyleCI](https://styleci.io/repos/47037751/shield?style=flat-square)](https://styleci.io/repos/47037751)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat-square)](https://gitter.im/fre5h/VichUploaderSerializationBundle)
 
-[![knpbundles.com](http://knpbundles.com/fre5h/VichUploaderSerializationBundle/badge-short)](http://knpbundles.com/fre5h/VichUploaderSerializationBundle)
-
 ## Requirements
 
 * PHP 7.2, 7.3, 7.4, 8.0
