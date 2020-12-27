@@ -13,16 +13,16 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 [![StyleCI](https://styleci.io/repos/47037751/shield?style=flat-square)](https://styleci.io/repos/47037751)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat-square)](https://gitter.im/fre5h/VichUploaderSerializationBundle)
 
-## Requirements
+## Requirements 🧐
 
 * PHP 7.3, 7.4
 * Symfony 5.0, 5.1, 5.2
 
-## Installation
+## Installation 🌱
 
 ```composer req fresh/vich-uploader-serialization-bundle='~3.1'```
 
-## Usage
+## Usage 🧑‍🎓
 
 Add the next class to the `use` section of your entity class.
 
@@ -180,6 +180,6 @@ class User
 
 ***
 
-## Contributing
+## Contributing 🤝
 
 See [CONTRIBUTING](https://github.com/fre5h/VichUploaderSerializationBundle/blob/master/.github/CONTRIBUTING.md) file.
