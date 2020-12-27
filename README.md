@@ -13,19 +13,16 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 [![StyleCI](https://styleci.io/repos/47037751/shield?style=flat-square)](https://styleci.io/repos/47037751)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat-square)](https://gitter.im/fre5h/VichUploaderSerializationBundle)
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93/small.png)](https://insight.sensiolabs.com/projects/a40e1ac6-3b2b-4405-b7c5-53d020a5cf93)
-[![knpbundles.com](http://knpbundles.com/fre5h/VichUploaderSerializationBundle/badge-short)](http://knpbundles.com/fre5h/VichUploaderSerializationBundle)
+## Requirements 🧐
 
-## Requirements
+* PHP 7.3, 7.4
+* Symfony 5.0, 5.1, 5.2
 
-* PHP 7.2 and *later*
-* Symfony 5.0 *later*
+## Installation 🌱
 
-## Installation
+```composer req fresh/vich-uploader-serialization-bundle='~3.1'```
 
-```composer req fresh/vich-uploader-serialization-bundle='~3.0'```
-
-## Usage
+## Usage 🧑‍🎓
 
 Add the next class to the `use` section of your entity class.
 
@@ -183,6 +180,6 @@ class User
 
 ***
 
-## Contributing
+## Contributing 🤝
 
 See [CONTRIBUTING](https://github.com/fre5h/VichUploaderSerializationBundle/blob/master/.github/CONTRIBUTING.md) file.
