@@ -132,12 +132,12 @@ class JmsSerializerSubscriberTest extends TestCase
     public function testPostSerializationForNonObject(): void
     {
         $this->generateRequestContext();
+        
+        $this->logger->expectes(self::never())->method('debug');
 
         $context = DeserializationContext::create();
         $event = new PreSerializeEvent($context, '123', []);
         $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, UserA::class, '', $event);
-        
-        $this->doesNotPerformAssertions();
     }
 
     public function testPostSerializationEventWithoutPreviousSerialization(): void
