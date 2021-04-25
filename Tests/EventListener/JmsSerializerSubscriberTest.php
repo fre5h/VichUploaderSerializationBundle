@@ -128,6 +128,17 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('photo.jpg', $user->getPhotoName());
         self::assertEquals('cover.jpg', $user->getCoverName());
     }
+    
+    public function testPostSerializationForNonObject(): void
+    {
+        $this->generateRequestContext();
+
+        $context = DeserializationContext::create();
+        $event = new PreSerializeEvent($context, '123', []);
+        $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, UserA::class, '', $event);
+        
+        $this->doesNotPerformAssertions();
+    }
 
     public function testPostSerializationEventWithoutPreviousSerialization(): void
     {
