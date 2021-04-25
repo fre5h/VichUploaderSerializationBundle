@@ -129,7 +129,7 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('cover.jpg', $user->getCoverName());
     }
     
-    public function testPostSerializationForNonObject(): void
+    public function testPreSerializationForNonObject(): void
     {
         $this->generateRequestContext();
         
