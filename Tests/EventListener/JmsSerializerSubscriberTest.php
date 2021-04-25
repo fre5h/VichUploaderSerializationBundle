@@ -128,6 +128,17 @@ class JmsSerializerSubscriberTest extends TestCase
         self::assertEquals('photo.jpg', $user->getPhotoName());
         self::assertEquals('cover.jpg', $user->getCoverName());
     }
+    
+    public function testPreSerializationForNonObject(): void
+    {
+        $this->generateRequestContext();
+        
+        $this->logger->expects(self::never())->method('debug');
+
+        $context = DeserializationContext::create();
+        $event = new PreSerializeEvent($context, '123', []);
+        $this->dispatcher->dispatch(JmsEvents::PRE_SERIALIZE, UserA::class, '', $event);
+    }
 
     public function testPostSerializationEventWithoutPreviousSerialization(): void
     {
@@ -250,6 +261,17 @@ class JmsSerializerSubscriberTest extends TestCase
 
         self::assertEquals('http://example.com/uploads/photo.jpg', $user->getPhotoName());
         self::assertEquals('http://example.com/uploads/cover.jpg', $user->getCoverName());
+    }
+    
+    public function testPostSerializationForNonObject(): void
+    {
+        $this->generateRequestContext();
+        
+        $this->logger->expects(self::never())->method('debug');
+
+        $context = DeserializationContext::create();
+        $event = new ObjectEvent($context, '123', []);
+        $this->dispatcher->dispatch(JmsEvents::POST_SERIALIZE, UserA::class, '', $event);
     }
 
     public function testDeserializationEventOfTheSameObjectTwice(): void
