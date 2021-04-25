@@ -14,7 +14,7 @@
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>
-         
+
     <coverage includeUncoveredFiles="false">
         <include>
             <directory suffix=".php">./</directory>
