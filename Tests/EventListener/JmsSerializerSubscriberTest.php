@@ -133,7 +133,7 @@ class JmsSerializerSubscriberTest extends TestCase
     {
         $this->generateRequestContext();
         
-        $this->logger->expectes(self::never())->method('debug');
+        $this->logger->expects(self::never())->method('debug');
 
         $context = DeserializationContext::create();
         $event = new PreSerializeEvent($context, '123', []);
