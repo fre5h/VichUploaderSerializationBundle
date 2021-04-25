@@ -144,7 +144,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
 
                     if ($property->getValue($event->getObject())) {
                         $uri = $this->storage->resolveUri($object, $vichSerializableAnnotation->getField());
-                        if ($vichSerializableAnnotation->isIncludeHost() && false === \filter_var($uri, FILTER_VALIDATE_URL)) {
+                        if ($vichSerializableAnnotation->isIncludeHost() && false === \filter_var($uri, \FILTER_VALIDATE_URL)) {
                             $uri = $this->getHostUrl().$uri;
                         }
                     }
