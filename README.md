@@ -1,7 +1,7 @@
 # VichUploaderSerializationBundle
 
 :package: Provides integration between [VichUploaderBundle](https://github.com/dustin10/VichUploaderBundle "VichUploaderBundle") and
-[JMSSerializerBundle](https://github.com/dustin10/VichUploaderBundle "JMSSerializerBundle").
+[JMSSerializerBundle](https://github.com/schmittjoh/JMSSerializerBundle "JMSSerializerBundle").
 Allows to generate full or relative URIs to entity fields mapped with `@Vich` and `@JMS` annotations during the serialization.
 
 [![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/fre5h/VichUploaderSerializationBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/fre5h/VichUploaderSerializationBundle/)
