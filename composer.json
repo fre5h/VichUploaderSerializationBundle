@@ -22,16 +22,16 @@
         "issues": "https://github.com/fre5h/VichUploaderSerializationBundle/issues"
     },
     "require": {
-        "php": ">=7.3.0",
+        "php": ">=7.4.0",
         "doctrine/cache": "^1.11",
         "doctrine/common": "^2.11|^3.0",
         "doctrine/persistence": "^1.3|^2.0",
         "jms/serializer-bundle": "^3.7",
         "monolog/monolog": "^2.0",
-        "symfony/config": "^5.0",
-        "symfony/dependency-injection": "^5.0",
-        "symfony/property-access": "^5.0",
-        "symfony/routing": "^5.0",
+        "symfony/config": "^5.0 || v6.0",
+        "symfony/dependency-injection": "^5.0 || v6.0",
+        "symfony/property-access": "^5.0 || v6.0",
+        "symfony/routing": "^5.0 || v6.0",
         "vich/uploader-bundle": "^1.16"
     },
     "require-dev": {
@@ -40,7 +40,7 @@
         "phpstan/phpstan-doctrine":"^0.12",
         "phpstan/phpstan-phpunit": "^0.12",
         "phpunit/phpunit": "^9.5",
-        "symfony/yaml": "^5.0"
+        "symfony/yaml": "^5.0 || v6.0"
     },
     "autoload": {
         "psr-4": {
