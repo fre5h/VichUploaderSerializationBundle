@@ -15,12 +15,12 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 
 ## Requirements 🧐
 
-* PHP 7.3, 7.4
-* Symfony 5.0, 5.1, 5.2
+* PHP 7.3, 7.4, 8.0, 8.1
+* Symfony 5.0, 5.1, 5.2, 5.3, 5.4, 6.0
 
 ## Installation 🌱
 
-```composer req fresh/vich-uploader-serialization-bundle='~3.1'```
+```composer req fresh/vich-uploader-serialization-bundle='~3.2'```
 
 ## Usage 🧑‍🎓
 
