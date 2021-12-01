@@ -2,10 +2,12 @@ includes:
     - 'vendor/phpstan/phpstan-phpunit/extension.neon'
     - 'vendor/phpstan/phpstan-phpunit/rules.neon'
     - 'vendor/phpstan/phpstan-doctrine/extension.neon'
+    - 'vendor/phpstan/phpstan-symfony/extension.neon'
 parameters:
-    level: 8
-    excludes_analyse:
+    level: 9
+    excludePaths:
         - '%rootDir%/../../../Tests/*'
         - '%rootDir%/../../../vendor/*'
     fileExtensions:
         - 'php'
+    checkGenericClassInNonGenericObjectType: false
