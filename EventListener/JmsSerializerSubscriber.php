@@ -74,7 +74,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @return iterable|array[]
+     * @return array<array<string, string>, array<string, string>>
      */
     public static function getSubscribedEvents(): iterable
     {
