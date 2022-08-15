@@ -18,6 +18,7 @@ use Doctrine\Persistence\Proxy;
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableClass;
 use Fresh\VichUploaderSerializationBundle\Annotation\VichSerializableField;
 use Fresh\VichUploaderSerializationBundle\Exception\IncompatibleUploadableAndSerializableFieldAnnotationException;
+use Generator;
 use JMS\Serializer\EventDispatcher\Events;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
@@ -74,9 +75,9 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @return iterable|array[]
+     * @return Generator
      */
-    public static function getSubscribedEvents(): iterable
+    public static function getSubscribedEvents(): Generator
     {
         yield ['event' => Events::PRE_SERIALIZE, 'method' => 'onPreSerialize'];
         yield ['event' => Events::POST_SERIALIZE, 'method' => 'onPostSerialize'];

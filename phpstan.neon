@@ -4,8 +4,9 @@ includes:
     - 'vendor/phpstan/phpstan-doctrine/extension.neon'
 parameters:
     level: 8
-    excludes_analyse:
+    excludePaths:
         - '%rootDir%/../../../Tests/*'
         - '%rootDir%/../../../vendor/*'
+        - './vendor/*'
     fileExtensions:
         - 'php'
