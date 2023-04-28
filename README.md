@@ -4,8 +4,8 @@
 [JMSSerializerBundle](https://github.com/schmittjoh/JMSSerializerBundle "JMSSerializerBundle").
 Allows to generate full or relative URIs to entity fields mapped with `@Vich` and `@JMS` annotations during the serialization.
 
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/fre5h/VichUploaderSerializationBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/fre5h/VichUploaderSerializationBundle/)
-[![Build Status](https://img.shields.io/github/workflow/status/fre5h/VichUploaderSerializationBundle/CI/main?style=flat-square)](https://github.com/fre5h/VichUploaderSerializationBundle/actions?query=workflow%3ACI+branch%3Amain+)
+[![Scrutinizer Quality Score](https://img.shields.io/github/actions/workflow/status/fre5h/VichUploaderSerializationBundle/ci.yaml?branch=main&style=flat-square)](https://scrutinizer-ci.com/g/fre5h/VichUploaderSerializationBundle/)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/fre5h/VichUploaderSerializationBundle/ci.yaml?branch=main&style=flat-square)](https://github.com/fre5h/VichUploaderSerializationBundle/actions?query=workflow%3ACI+branch%3Amain+)
 [![CodeCov](https://img.shields.io/codecov/c/github/fre5h/VichUploaderSerializationBundle.svg?style=flat-square)](https://codecov.io/github/fre5h/VichUploaderSerializationBundle)
 [![License](https://img.shields.io/packagist/l/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
 [![Latest Stable Version](https://img.shields.io/packagist/v/fresh/vich-uploader-serialization-bundle.svg?style=flat-square)](https://packagist.org/packages/fresh/vich-uploader-serialization-bundle)
@@ -15,12 +15,12 @@ Allows to generate full or relative URIs to entity fields mapped with `@Vich` an
 
 ## Requirements 🧐
 
-* PHP >=7.4
-* Symfony >= 5.0
+* PHP >=8.0
+* Symfony >= 6.0
 
 ## Installation 🌱
 
-```composer req fresh/vich-uploader-serialization-bundle='~3.2'```
+```composer req fresh/vich-uploader-serialization-bundle='~3.3'```
 
 ## Usage 🧑‍🎓
 

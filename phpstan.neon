@@ -8,6 +8,7 @@ parameters:
     excludePaths:
         - '%rootDir%/../../../Tests/*'
         - '%rootDir%/../../../vendor/*'
+        - './vendor/*'
     fileExtensions:
         - 'php'
     checkGenericClassInNonGenericObjectType: false
