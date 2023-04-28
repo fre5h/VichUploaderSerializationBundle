@@ -75,7 +75,7 @@ class JmsSerializerSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @return Generator
+     * @return array<array<string, string>, array<string, string>>
      */
     public static function getSubscribedEvents(): Generator
     {
