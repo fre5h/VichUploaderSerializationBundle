@@ -20,7 +20,6 @@ use Fresh\VichUploaderSerializationBundle\Exception\LogicException;
  * VichSerializableField Annotation Class.
  *
  * @Annotation
- *
  * @Target({"PROPERTY", "METHOD"})
  *
  * @author Artem Henvald <genvaldartem@gmail.com>
